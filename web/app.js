@@ -8,6 +8,7 @@ let currentTreasury = null;
 let activeMarkets = [];
 let oracleReports = [];
 let activeHedges = [];
+let beginnerModeActive = false;
 
 // Initialize on page load
 document.addEventListener("DOMContentLoaded", () => {
@@ -15,6 +16,24 @@ document.addEventListener("DOMContentLoaded", () => {
     loadAllData();
     startRealtimeYieldTicker();
 });
+
+// Toggle Beginner Explainer
+function toggleBeginnerGuide() {
+    const sec = document.getElementById("beginnerExplainerSection");
+    const btnText = document.getElementById("beginnerToggleText");
+    beginnerModeActive = !beginnerModeActive;
+
+    if (sec) {
+        if (beginnerModeActive) {
+            sec.style.display = "block";
+            sec.scrollIntoView({ behavior: 'smooth' });
+            if (btnText) btnText.innerText = "Hide beginner guide";
+        } else {
+            sec.style.display = "none";
+            if (btnText) btnText.innerText = "New to this? Click here";
+        }
+    }
+}
 
 // Tab Navigation
 function setupTabNavigation() {
@@ -104,7 +123,10 @@ function selectBout(boutId) {
     const bout = activeBouts.find(b => b.boutId === boutId);
     if (!bout) return;
 
-    document.getElementById("detailEventName").innerText = bout.eventName;
+    const eventElem = document.getElementById("detailEventName");
+    if (!eventElem) return;
+
+    eventElem.innerText = bout.eventName;
     document.getElementById("detailJurisdiction").innerText = `${bout.jurisdiction} Compliance Rail`;
     document.getElementById("detailToken").innerText = bout.settlementToken;
     document.getElementById("detailBasePurse").innerText = `$${bout.basePurseUsd.toLocaleString()}.00`;
@@ -173,14 +195,14 @@ async function executeActiveBoutSettlement() {
 
 function renderReceipt(bout) {
     const container = document.getElementById("receiptDetails");
-    if (!bout.disbursements) return;
+    if (!bout.disbursements || !container) return;
 
     container.innerHTML = `
         <div style="margin-bottom:10px;">
             <strong>Winner:</strong> <span class="text-gold">${bout.winner}</span> | <strong>Result:</strong> ${bout.winMethod || 'KO Round 2'}
         </div>
         ${bout.disbursements.map(d => `
-            <div class="receipt-item">
+            <div class="receipt-item" style="display:flex;justify-content:space-between;padding:4px 0;font-size:12px;">
                 <span><strong>${d.name}</strong> (${d.role} - ${(d.percentageBps/100).toFixed(1)}%)</span>
                 <span class="text-green">$${d.amountUsd.toLocaleString(undefined, {minimumFractionDigits: 2})} [${d.txHash ? d.txHash.slice(0, 10) + '...' : 'BitGo MPC Confirmed'}]</span>
             </div>
@@ -190,9 +212,12 @@ function renderReceipt(bout) {
 
 // 2. USD1 "Train-to-Earn" Check-In Simulator
 function simulateTrainToEarnCheckIn() {
-    const athleteWallet = document.getElementById("athleteCheckInSelect").value;
-    const athleteName = document.getElementById("athleteCheckInSelect").selectedOptions[0].text;
-    const gymName = document.getElementById("gymBeaconSelect").selectedOptions[0].text;
+    const athleteElem = document.getElementById("athleteCheckInSelect");
+    const gymElem = document.getElementById("gymBeaconSelect");
+    if (!athleteElem || !gymElem) return;
+
+    const athleteName = athleteElem.selectedOptions[0].text;
+    const gymName = gymElem.selectedOptions[0].text;
 
     const resBox = document.getElementById("checkInResultBox");
     const details = document.getElementById("checkInResultDetails");
@@ -225,7 +250,7 @@ async function loadPredictionMarkets() {
         <div class="pred-market-card">
             <div style="display:flex;justify-content:space-between;align-items:flex-start;">
                 <div>
-                    <span class="badge badge-info">${m.category}</span>
+                    <span class="badge badge-purple">${m.category}</span>
                     <h4 style="font-size:15px;margin-top:6px;">${m.title}</h4>
                     <span style="font-size:11px;color:var(--text-muted);">Pool: <strong class="text-gold">$${m.totalPoolUsd.toLocaleString()}</strong> (1.5% Protocol Fee)</span>
                 </div>
@@ -349,8 +374,10 @@ async function loadInstitutionalHedges() {
     if (!data || !data.hedgesOverview) return;
 
     const overview = data.hedgesOverview;
-    document.getElementById("otcMarginVal").innerText = `$${overview.totalMarginAllocatedUsd.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
-    document.getElementById("otcUnencumberedVal").innerText = `$${overview.unencumberedTreasuryFloatUsd.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+    const marginSummary = document.getElementById("otcMarginValSummary");
+    const unencumbered = document.getElementById("otcUnencumberedVal");
+    if (marginSummary) marginSummary.innerText = `$${overview.totalMarginAllocatedUsd.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+    if (unencumbered) unencumbered.innerText = `$${overview.unencumberedTreasuryFloatUsd.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
 
     container.innerHTML = overview.activeHedges.map(h => `
         <div class="otc-hedge-card">

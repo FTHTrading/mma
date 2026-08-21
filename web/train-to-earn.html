@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>USD1 "Train-to-Earn" & UFC GYM — mma.unykorn.ai</title>
+    <link rel="icon" type="image/png" href="assets/gate_mark_reverted.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -11,10 +12,11 @@
 </head>
 <body class="dark-theme">
     <div class="app-layout">
-        <!-- Top Nav -->
+        <!-- Top Nav with Official Logo -->
         <header class="top-nav">
             <div class="brand-group">
                 <a href="index.html" class="logo-box">
+                    <img src="assets/gate_mark_reverted.png" alt="Unykorn Logo" class="logo-img">
                     <span class="logo-text">MMA<span class="highlight">.INC</span></span>
                     <span class="sub-badge" id="stockPriceTag">NYSE: MMA $0.47</span>
                 </a>
@@ -44,6 +46,9 @@
                     <span class="chip-label">KEY SHAREHOLDER</span>
                     <span class="chip-val text-gold">Conor McGregor</span>
                 </div>
+                <button class="beginner-toggle-btn" onclick="toggleBeginnerGuide()">
+                    <span>💡</span> <span id="beginnerToggleText">How it works</span>
+                </button>
                 <div class="system-status-indicator">
                     <span class="pulse-dot"></span>
                     <span>ALL RAILS LIVE</span>
@@ -69,10 +74,15 @@
 
         <!-- Main Content -->
         <main class="main-viewport">
-            <div class="pane-header">
-                <div>
-                    <h2>🪙 World Liberty Financial USD1 Stablecoin & "Train-to-Earn" Economy</h2>
-                    <p class="subtitle">Zero-volatility transactional settlement across UFC GYM BJJ Franchise Studios, BJJLink Admin+, and Zebra Athletics</p>
+            <!-- Video Banner -->
+            <div class="hero-video-banner" style="height:220px;margin-bottom:20px;">
+                <video autoplay loop muted playsinline class="hero-video-elem" style="height:220px;">
+                    <source src="assets/use_our_logos_and_colors_and_h.mp4" type="video/mp4">
+                    <source src="assets/Got_it_Let_s_pivot_and_focus.mp4" type="video/mp4">
+                </video>
+                <div class="hero-video-overlay" style="padding:20px;">
+                    <span class="hero-tagline">🥋 Everyday Academy Rewards & Zero-Volatility Settlement</span>
+                    <h2 style="font-size:24px;font-weight:900;margin-top:4px;">World Liberty Financial USD1 & "Train-to-Earn"</h2>
                 </div>
             </div>
 
