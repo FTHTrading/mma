@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BitGo Enterprise Qualified Treasury — mma.unykorn.ai</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dark-theme">
+    <div class="app-layout">
+        <!-- Top Nav -->
+        <header class="top-nav">
+            <div class="brand-group">
+                <a href="index.html" class="logo-box">
+                    <span class="logo-text">MMA<span class="highlight">.INC</span></span>
+                    <span class="sub-badge" id="stockPriceTag">NYSE: MMA $0.47</span>
+                </a>
+                <div class="divider"></div>
+                <div class="powered-by">
+                    <span class="powered-label">ORCHESTRATION</span>
+                    <span class="powered-val">UNYKORN.AI RAILS</span>
+                </div>
+                <div class="divider"></div>
+                <div class="powered-by">
+                    <span class="powered-label">QUALIFIED CUSTODY</span>
+                    <span class="powered-val bitgo-glow">BITGO ENTERPRISE</span>
+                </div>
+                <div class="divider"></div>
+                <div class="powered-by">
+                    <span class="powered-label">TRANSACTIONAL STABLECOIN</span>
+                    <span class="powered-val text-gold">USD1 (WORLD LIBERTY)</span>
+                </div>
+            </div>
+
+            <div class="header-metrics">
+                <div class="metric-chip">
+                    <span class="chip-label">AUM (QUALIFIED CUSTODY)</span>
+                    <span class="chip-val text-gold">$4,000,000.00</span>
+                </div>
+                <div class="metric-chip">
+                    <span class="chip-label">T-BILL YIELD (5.25%)</span>
+                    <span class="chip-val text-green">+$210,000.00 / yr</span>
+                </div>
+                <div class="system-status-indicator">
+                    <span class="pulse-dot"></span>
+                    <span>ALL RAILS LIVE</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation Links -->
+        <nav class="sub-nav">
+            <div class="nav-tabs">
+                <a href="index.html" class="nav-link"><span class="tab-icon">🏠</span> Overview</a>
+                <a href="purses.html" class="nav-link"><span class="tab-icon">⚡</span> Purse Settlement</a>
+                <a href="train-to-earn.html" class="nav-link tab-gold"><span class="tab-icon">🪙</span> USD1 & UFC GYM</a>
+                <a href="prediction-markets.html" class="nav-link tab-purple"><span class="tab-icon">🎯</span> Prediction Markets</a>
+                <a href="institutional-hedging.html" class="nav-link tab-indigo"><span class="tab-icon">🛡️</span> Institutional Hedging</a>
+                <a href="rwa-financing.html" class="nav-link"><span class="tab-icon">🏢</span> Gym RWA Escrow</a>
+                <a href="xp-passport.html" class="nav-link"><span class="tab-icon">🪪</span> XP Passport</a>
+                <a href="treasury.html" class="nav-link tab-blue active"><span class="tab-icon">🏛️</span> BitGo Treasury</a>
+                <a href="investors.html" class="nav-link"><span class="tab-icon">📈</span> MMA (NYSE) & Model</a>
+                <a href="compliance.html" class="nav-link tab-teal"><span class="tab-icon">🌐</span> Compliance</a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-viewport">
+            <div class="pane-header">
+                <div>
+                    <h2>🏛️ BitGo Enterprise Qualified Custody & Global Treasury Monitor</h2>
+                    <p class="subtitle">OCC Chartered Trust, MAS Major Payment Institution, and JFSA 95% Cold Storage Segregation</p>
+                </div>
+            </div>
+
+            <div class="treasury-dashboard">
+                <div class="treasury-hero card card-glass">
+                    <div class="hero-left">
+                        <span class="hero-label">TOTAL QUALIFIED CUSTODY ASSETS UNDER MANAGEMENT</span>
+                        <h1 class="hero-number">$4,000,000.00 <span class="usd-tag">USD</span></h1>
+                        <p class="hero-desc">Private placement proceeds held in tokenized short-term T-Bills (BUIDL / USDY) with zero cash drag.</p>
+                    </div>
+                    <div class="hero-right">
+                        <div class="stat-card">
+                            <span class="stat-label">ANNUALIZED YIELD RATE</span>
+                            <span class="stat-val text-green">5.25% APY</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-label">EST. ANNUAL YIELD</span>
+                            <span class="stat-val text-green">+$210,000.00</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-label">ACCUMULATED OPERATING YIELD</span>
+                            <span class="stat-val text-gold" id="accumYieldVal">$84,250.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="vaults-grid" id="vaultsContainer">
+                    <!-- Populated via JS -->
+                </div>
+
+                <!-- BitGo Recent Transactions -->
+                <div class="card card-glass mt-4">
+                    <div class="card-title">
+                        <h3>📑 BitGo Enterprise Real-Time Audit Log & MPC Ledger</h3>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Tx Type</th>
+                                <th>Asset / Token</th>
+                                <th>Amount</th>
+                                <th>Jurisdiction / Recipient</th>
+                                <th>Status</th>
+                                <th>Timestamp</th>
+                            </tr>
+                        </thead>
+                        <tbody id="treasuryTxTable">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

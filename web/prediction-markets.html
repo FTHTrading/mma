@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Markets & Multi-Oracle Desk — mma.unykorn.ai</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dark-theme">
+    <div class="app-layout">
+        <!-- Top Nav -->
+        <header class="top-nav">
+            <div class="brand-group">
+                <a href="index.html" class="logo-box">
+                    <span class="logo-text">MMA<span class="highlight">.INC</span></span>
+                    <span class="sub-badge" id="stockPriceTag">NYSE: MMA $0.47</span>
+                </a>
+                <div class="divider"></div>
+                <div class="powered-by">
+                    <span class="powered-label">ORCHESTRATION</span>
+                    <span class="powered-val">UNYKORN.AI RAILS</span>
+                </div>
+                <div class="divider"></div>
+                <div class="powered-by">
+                    <span class="powered-label">QUALIFIED CUSTODY</span>
+                    <span class="powered-val bitgo-glow">BITGO ENTERPRISE</span>
+                </div>
+                <div class="divider"></div>
+                <div class="powered-by">
+                    <span class="powered-label">TRANSACTIONAL STABLECOIN</span>
+                    <span class="powered-val text-gold">USD1 (WORLD LIBERTY)</span>
+                </div>
+            </div>
+
+            <div class="header-metrics">
+                <div class="metric-chip">
+                    <span class="chip-label">ORACLE CONSENSUS</span>
+                    <span class="chip-val text-purple">3-of-4 Signature Quorum</span>
+                </div>
+                <div class="metric-chip">
+                    <span class="chip-label">PROTOCOL FEE</span>
+                    <span class="chip-val text-green">1.5% Liquidity Pool</span>
+                </div>
+                <div class="system-status-indicator">
+                    <span class="pulse-dot"></span>
+                    <span>ALL RAILS LIVE</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation Links -->
+        <nav class="sub-nav">
+            <div class="nav-tabs">
+                <a href="index.html" class="nav-link"><span class="tab-icon">🏠</span> Overview</a>
+                <a href="purses.html" class="nav-link"><span class="tab-icon">⚡</span> Purse Settlement</a>
+                <a href="train-to-earn.html" class="nav-link tab-gold"><span class="tab-icon">🪙</span> USD1 & UFC GYM</a>
+                <a href="prediction-markets.html" class="nav-link tab-purple active"><span class="tab-icon">🎯</span> Prediction Markets</a>
+                <a href="institutional-hedging.html" class="nav-link tab-indigo"><span class="tab-icon">🛡️</span> Institutional Hedging</a>
+                <a href="rwa-financing.html" class="nav-link"><span class="tab-icon">🏢</span> Gym RWA Escrow</a>
+                <a href="xp-passport.html" class="nav-link"><span class="tab-icon">🪪</span> XP Passport</a>
+                <a href="treasury.html" class="nav-link tab-blue"><span class="tab-icon">🏛️</span> BitGo Treasury</a>
+                <a href="investors.html" class="nav-link"><span class="tab-icon">📈</span> MMA (NYSE) & Model</a>
+                <a href="compliance.html" class="nav-link tab-teal"><span class="tab-icon">🌐</span> Compliance</a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-viewport">
+            <div class="pane-header">
+                <div>
+                    <h2>🎯 Prediction Markets & Combat Sports Multi-Oracle Engine</h2>
+                    <p class="subtitle">Fan outcome contracts, 3-of-4 signature oracle consensus, 5-minute dispute buffer, and XP reward pools</p>
+                </div>
+            </div>
+
+            <div class="two-col-layout">
+                <!-- Left: Active Prediction Markets & Staking -->
+                <div class="col card card-glass">
+                    <div class="card-title">
+                        <h3>🔥 Active Event Prediction Pools</h3>
+                        <span class="badge badge-purple" id="predMarketBadge">3 Markets Open</span>
+                    </div>
+                    <div class="pred-markets-list" id="predMarketsContainer">
+                        <!-- Populated via JS -->
+                    </div>
+                </div>
+
+                <!-- Right: Multi-Oracle Consensus Feed & Dispute Window -->
+                <div class="col card card-glass">
+                    <div class="card-title">
+                        <h3>📡 Multi-Source Cryptographic Oracle Telemetry (3-of-4 Quorum)</h3>
+                        <span class="badge badge-success">Consensus Live</span>
+                    </div>
+
+                    <div class="oracle-feed-box">
+                        <div class="oracle-nodes-grid" id="oracleNodesGrid">
+                            <!-- Populated via JS -->
+                        </div>
+
+                        <div class="card-title mt-4">
+                            <h4>⚖️ Bout Outcome Finalization & Dispute Buffer</h4>
+                        </div>
+                        <div id="oracleReportsContainer">
+                            <!-- Populated via JS -->
+                        </div>
+
+                        <div class="dispute-action-box mt-4">
+                            <button class="btn btn-outline btn-sm" onclick="simulateDispute()">⚠️ Flag Commission Dispute</button>
+                            <button class="btn btn-primary btn-sm" onclick="finalizeOracleOutcome()">✅ Finalize Outcome & Disburse Winnings (BitGo T+0)</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

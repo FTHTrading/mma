@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purse Settlement Desk — mma.unykorn.ai</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dark-theme">
+    <div class="app-layout">
+        <!-- Top Nav -->
+        <header class="top-nav">
+            <div class="brand-group">
+                <a href="index.html" class="logo-box">
+                    <span class="logo-text">MMA<span class="highlight">.INC</span></span>
+                    <span class="sub-badge" id="stockPriceTag">NYSE: MMA $0.47</span>
+                </a>
+                <div class="divider"></div>
+                <div class="powered-by">
+                    <span class="powered-label">ORCHESTRATION</span>
+                    <span class="powered-val">UNYKORN.AI RAILS</span>
+                </div>
+                <div class="divider"></div>
+                <div class="powered-by">
+                    <span class="powered-label">QUALIFIED CUSTODY</span>
+                    <span class="powered-val bitgo-glow">BITGO ENTERPRISE</span>
+                </div>
+                <div class="divider"></div>
+                <div class="powered-by">
+                    <span class="powered-label">TRANSACTIONAL STABLECOIN</span>
+                    <span class="powered-val text-gold">USD1 (WORLD LIBERTY)</span>
+                </div>
+            </div>
+
+            <div class="header-metrics">
+                <div class="metric-chip">
+                    <span class="chip-label">TREASURY FLOAT</span>
+                    <span class="chip-val text-gold">$4,000,000.00</span>
+                </div>
+                <div class="metric-chip">
+                    <span class="chip-label">DAILY YIELD</span>
+                    <span class="chip-val text-green">+$575.34 / day</span>
+                </div>
+                <div class="system-status-indicator">
+                    <span class="pulse-dot"></span>
+                    <span>ALL RAILS LIVE</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation Links -->
+        <nav class="sub-nav">
+            <div class="nav-tabs">
+                <a href="index.html" class="nav-link"><span class="tab-icon">🏠</span> Overview</a>
+                <a href="purses.html" class="nav-link active"><span class="tab-icon">⚡</span> Purse Settlement</a>
+                <a href="train-to-earn.html" class="nav-link tab-gold"><span class="tab-icon">🪙</span> USD1 & UFC GYM</a>
+                <a href="prediction-markets.html" class="nav-link tab-purple"><span class="tab-icon">🎯</span> Prediction Markets</a>
+                <a href="institutional-hedging.html" class="nav-link tab-indigo"><span class="tab-icon">🛡️</span> Institutional Hedging</a>
+                <a href="rwa-financing.html" class="nav-link"><span class="tab-icon">🏢</span> Gym RWA Escrow</a>
+                <a href="xp-passport.html" class="nav-link"><span class="tab-icon">🪪</span> XP Passport</a>
+                <a href="treasury.html" class="nav-link tab-blue"><span class="tab-icon">🏛️</span> BitGo Treasury</a>
+                <a href="investors.html" class="nav-link"><span class="tab-icon">📈</span> MMA (NYSE) & Model</a>
+                <a href="compliance.html" class="nav-link tab-teal"><span class="tab-icon">🌐</span> Compliance</a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-viewport">
+            <div class="pane-header">
+                <div>
+                    <h2>⚡ Fight Purse Smart Contract & BitGo MPC Settlement Desk</h2>
+                    <p class="subtitle">Programmatic ERC-3643 split allocations, win bonuses, and athletic commission tax withholding (10,000 BPS zero-dust engine)</p>
+                </div>
+                <div class="pane-actions">
+                    <button class="btn btn-outline" onclick="loadBouts()">🔄 Refresh Fight Cards</button>
+                </div>
+            </div>
+
+            <div class="two-col-layout">
+                <!-- Left: Bout List & Selector -->
+                <div class="col card card-glass">
+                    <div class="card-title">
+                        <h3>🥋 Active Fight Card Bouts</h3>
+                        <span class="badge badge-info" id="boutCountBadge">3 Scheduled</span>
+                    </div>
+                    <div class="bout-list" id="boutListContainer">
+                        <!-- Populated via JS -->
+                    </div>
+                </div>
+
+                <!-- Right: Settlement Console & Execution Matrix -->
+                <div class="col card card-glass" id="settlementConsole">
+                    <div class="card-title">
+                        <h3>📜 Selected Bout Allocation & Split Execution</h3>
+                        <span class="badge badge-warning" id="activeBoutStatus">Ready for Settlement</span>
+                    </div>
+
+                    <div id="boutDetailView">
+                        <div class="bout-banner">
+                            <div class="bout-headline" id="detailEventName">Loading Event...</div>
+                            <div class="bout-meta-row">
+                                <div class="meta-item">
+                                    <span class="m-label">JURISDICTION</span>
+                                    <span class="m-val" id="detailJurisdiction">US (NSAC)</span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="m-label">SETTLEMENT ASSET</span>
+                                    <span class="m-val highlight" id="detailToken">USD1 / USDC (BitGo MPC)</span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="m-label">BASE PURSE</span>
+                                    <span class="m-val text-gold" id="detailBasePurse">$1,000,000.00</span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="m-label">WIN BONUS</span>
+                                    <span class="m-val text-green" id="detailWinBonus">+$500,000.00</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="split-table-wrapper">
+                            <h4>Programmatic Split Allocations (10,000 BPS Exact)</h4>
+                            <table class="data-table" id="splitTable">
+                                <thead>
+                                    <tr>
+                                        <th>Recipient / Beneficiary</th>
+                                        <th>Role</th>
+                                        <th>BPS</th>
+                                        <th>Est. Payout (USD)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="splitTableBody">
+                                    <!-- Populated via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Execution Controls -->
+                        <div class="execution-box">
+                            <h4>Official Athletic Commission Fight Outcome</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Declare Winner:</label>
+                                    <select id="winnerSelect" class="form-control">
+                                        <!-- Populated via JS -->
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Finish Method:</label>
+                                    <select id="winMethodSelect" class="form-control">
+                                        <option>KO/TKO Round 2 (2:14)</option>
+                                        <option>Submission (Rear-Naked Choke) Round 3</option>
+                                        <option>Unanimous Decision (30-27, 29-28, 29-28)</option>
+                                        <option>Split Decision (29-28, 28-29, 29-28)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <button id="btnExecuteSettlement" class="btn btn-primary btn-block" onclick="executeActiveBoutSettlement()">
+                                🚀 Execute BitGo Programmatic MPC Payout (T+0)
+                            </button>
+                        </div>
+
+                        <!-- Live Settlement Output -->
+                        <div class="settlement-receipt" id="settlementReceiptBox" style="display:none;">
+                            <h4>✅ Settlement Receipt & BitGo Ledger Confirmation</h4>
+                            <div id="receiptDetails"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
