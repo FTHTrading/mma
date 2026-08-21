@@ -9,6 +9,55 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .easy-hero-card {
+            background: linear-gradient(135deg, rgba(13, 19, 33, 0.95), rgba(8, 12, 22, 0.98));
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 18px;
+            padding: 36px;
+            margin-bottom: 28px;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.6);
+            backdrop-filter: blur(12px);
+        }
+        .easy-action-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .easy-action-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .easy-action-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+        .easy-action-btn.btn-gold-card:hover { border-color: var(--c-gold); background: var(--c-gold-bg); }
+        .easy-action-btn.btn-cyan-card:hover { border-color: var(--c-cyan); background: var(--c-cyan-bg); }
+        .easy-action-btn.btn-purple-card:hover { border-color: var(--c-purple); background: var(--c-purple-bg); }
+        .easy-action-btn.btn-blue-card:hover { border-color: var(--c-blue); background: var(--c-blue-bg); }
+        .dns-helper-alert {
+            background: rgba(245, 158, 11, 0.08);
+            border: 1px solid rgba(245, 158, 11, 0.35);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+    </style>
 </head>
 <body class="dark-theme">
     <div class="app-layout">
@@ -50,9 +99,6 @@
                     <span class="chip-label">TOTAL CAPITAL ACCESS</span>
                     <span class="chip-val text-cyan" id="headerCapitalAccess">$10.25M USD</span>
                 </div>
-                <button class="beginner-toggle-btn" onclick="toggleBeginnerGuide()">
-                    <span>💡</span> <span id="beginnerToggleText">New to this? Click here</span>
-                </button>
                 <div class="system-status-indicator">
                     <span class="pulse-dot"></span>
                     <span>ALL RAILS LIVE</span>
@@ -79,6 +125,24 @@
         <!-- Main Content Area -->
         <main class="main-viewport">
 
+            <!-- Cloudflare Live DNS Alert Banner -->
+            <div class="dns-helper-alert">
+                <div style="display:flex;align-items:center;gap:12px;">
+                    <span style="font-size:22px;">🌐</span>
+                    <div>
+                        <strong style="color:var(--c-gold);font-size:14px;">Cloudflare Tunnel Ingress Configured for mma.unykorn.ai</strong>
+                        <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">
+                            Local port <strong>8888</strong> is connected to Cloudflare Tunnel <code style="color:var(--c-cyan);">6eaf5d3b-6aa1-448e-a8a9-a6def5534996</code>.
+                        </div>
+                    </div>
+                </div>
+                <div style="display:flex;gap:8px;">
+                    <a href="https://dash.cloudflare.com/07bcc4a189ef176261b818409c95891f/unykorn.ai/dns/records" target="_blank" class="btn btn-outline btn-sm">
+                        ⚙️ Add CNAME in Cloudflare DNS ➔
+                    </a>
+                </div>
+            </div>
+
             <!-- Hero Video Banner with Real MMA Fight Reel -->
             <div class="hero-video-banner">
                 <video autoplay loop muted playsinline class="hero-video-elem" id="heroFightVideo">
@@ -99,23 +163,23 @@
                 </div>
             </div>
 
-            <!-- Beginner-Friendly "Plain English" Explainer -->
-            <div class="beginner-explainer-banner" id="beginnerExplainerSection">
-                <div class="beginner-explainer-title">
+            <!-- Easy 3-Step "Plain English" Guide -->
+            <div class="easy-hero-card">
+                <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border-color);padding-bottom:16px;">
                     <div>
-                        <h3 style="font-size:18px;font-weight:800;color:var(--c-gold);">🥋 What is MMA.INC & Unykorn? (In Plain English)</h3>
-                        <p style="font-size:13px;color:var(--text-muted);">You don't need to be a blockchain or finance expert to understand how our platform helps fighters, gyms, and fans.</p>
+                        <span class="badge badge-warning" style="font-size:11px;">Beginner Friendly</span>
+                        <h2 style="font-size:24px;font-weight:900;margin-top:6px;">MMA.INC & Unykorn Explained in 30 Seconds</h2>
                     </div>
-                    <span class="badge badge-warning">Plain English Guide</span>
+                    <span style="font-size:13px;color:var(--text-muted);">No blockchain background required</span>
                 </div>
 
-                <div class="beginner-steps-grid">
+                <div class="beginner-steps-grid" style="margin-top:20px;">
                     <!-- Step 1 -->
                     <div class="beginner-step-box">
                         <div class="step-number">01</div>
-                        <div class="step-heading text-gold">For Gym Members & Fighters</div>
+                        <div class="step-heading text-gold">For Gym Members & Students</div>
                         <div class="step-text">
-                            <strong>"Get Paid to Train":</strong> When you check in to train at verified UFC GYMs or BJJLink academies, you automatically earn <strong>$2.50 in USD1 cash rewards</strong> and XP level points on your smartphone.
+                            <strong>"Get Paid to Train":</strong> Check in to train at verified UFC GYMs or BJJLink academies and automatically earn <strong>$2.50 in USD1 cash rewards</strong> and XP level points on your smartphone.
                         </div>
                     </div>
 
@@ -124,7 +188,7 @@
                         <div class="step-number">02</div>
                         <div class="step-heading text-cyan">For Gym Owners & Promoters</div>
                         <div class="step-text">
-                            <strong>No More 4% Card Fees:</strong> Gyms save over <strong>$660,000/year</strong> by ditching high credit card fees. Fight purses disburse to fighters, coaches, and managers instantly with exact penny-perfect splits.
+                            <strong>Save 4% in Card Fees:</strong> Gyms save over <strong>$660,000/year</strong> by ditching high credit card fees. Fight purses disburse to fighters, coaches, and managers instantly with exact penny-perfect splits.
                         </div>
                     </div>
 
@@ -133,9 +197,48 @@
                         <div class="step-number">03</div>
                         <div class="step-heading text-green">For Fight Fans & Investors</div>
                         <div class="step-text">
-                            <strong>Institutional Safety:</strong> A publicly traded company (NYSE: MMA) backed by high-profile advisors like <strong>Donald Trump Jr.</strong> and <strong>Conor McGregor</strong>, with a $4M cash vault earning 5.25% interest inside BitGo Bank.
+                            <strong>Institutional Safety:</strong> A publicly traded company (NYSE: MMA) backed by <strong>Donald Trump Jr.</strong> and <strong>Conor McGregor</strong>, with a $4M cash vault earning 5.25% interest inside BitGo Bank.
                         </div>
                     </div>
+                </div>
+
+                <!-- 4 Easy Action Buttons -->
+                <div class="easy-action-grid">
+                    <a href="train-to-earn.html" class="easy-action-btn btn-gold-card">
+                        <div>
+                            <span style="font-size:24px;">🪙</span>
+                            <h4 style="font-size:15px;font-weight:800;margin-top:8px;">Get Paid to Train</h4>
+                            <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Log a check-in and earn $2.50 USD1.</p>
+                        </div>
+                        <span class="text-gold" style="font-size:12px;font-weight:700;margin-top:10px;">Try Simulator ➔</span>
+                    </a>
+
+                    <a href="purses.html" class="easy-action-btn btn-cyan-card">
+                        <div>
+                            <span style="font-size:24px;">⚡</span>
+                            <h4 style="font-size:15px;font-weight:800;margin-top:8px;">Purse Settlement</h4>
+                            <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">10,000 BPS zero-dust split execution.</p>
+                        </div>
+                        <span class="text-cyan" style="font-size:12px;font-weight:700;margin-top:10px;">Settle Fight ➔</span>
+                    </a>
+
+                    <a href="prediction-markets.html" class="easy-action-btn btn-purple-card">
+                        <div>
+                            <span style="font-size:24px;">🎯</span>
+                            <h4 style="font-size:15px;font-weight:800;margin-top:8px;">Fan Prediction Pools</h4>
+                            <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Predict fight finishes & strike counts.</p>
+                        </div>
+                        <span class="text-purple" style="font-size:12px;font-weight:700;margin-top:10px;">Pick Winners ➔</span>
+                    </a>
+
+                    <a href="treasury.html" class="easy-action-btn btn-blue-card">
+                        <div>
+                            <span style="font-size:24px;">🏛️</span>
+                            <h4 style="font-size:15px;font-weight:800;margin-top:8px;">BitGo $4.0M Treasury</h4>
+                            <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Tokenized T-Bills earning 5.25% yield.</p>
+                        </div>
+                        <span class="text-blue" style="font-size:12px;font-weight:700;margin-top:10px;">View Vaults ➔</span>
+                    </a>
                 </div>
             </div>
 
