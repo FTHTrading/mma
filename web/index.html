@@ -3,366 +3,578 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MMA.INC x Unykorn.ai x BitGo Enterprise — Institutional Combat Sports Platform</title>
+    <title>MMA.INC — The Future of Combat Sports Finance | Powered by Unykorn.ai & BitGo</title>
+    <meta name="description" content="MMA.INC (NYSE: MMA) powers the $21M+ global combat sports economy with instant fighter payments, gym rewards, and institutional-grade digital finance.">
     <link rel="icon" type="image/png" href="assets/gate_mark_reverted.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
     <style>
-        .easy-hero-card {
-            background: linear-gradient(135deg, rgba(13, 19, 33, 0.95), rgba(8, 12, 22, 0.98));
-            border: 1px solid rgba(6, 182, 212, 0.3);
-            border-radius: 18px;
-            padding: 36px;
-            margin-bottom: 28px;
-            box-shadow: 0 16px 40px rgba(0,0,0,0.6);
-            backdrop-filter: blur(12px);
+        /* ═══════════ RESET & TOKENS ═══════════ */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-deep: #060a14;
+            --bg-card: #0c1222;
+            --bg-card-hover: #111b30;
+            --border: rgba(255,255,255,0.06);
+            --border-glow: rgba(6,182,212,0.25);
+            --text: #e2e8f0;
+            --text-dim: #94a3b8;
+            --text-faint: #64748b;
+            --gold: #f59e0b; --gold-bg: rgba(245,158,11,0.08);
+            --cyan: #06b6d4; --cyan-bg: rgba(6,182,212,0.08);
+            --green: #10b981; --green-bg: rgba(16,185,129,0.08);
+            --purple: #a855f7; --purple-bg: rgba(168,85,247,0.08);
+            --blue: #3b82f6; --blue-bg: rgba(59,130,246,0.08);
+            --indigo: #6366f1; --indigo-bg: rgba(99,102,241,0.08);
+            --red: #ef4444;
+            --teal: #14b8a6; --teal-bg: rgba(20,184,166,0.08);
+            --radius: 14px;
+            --nav-h: 64px;
         }
-        .easy-action-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-            margin-top: 24px;
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+            background: var(--bg-deep);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
         }
-        .easy-action-btn {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 20px;
-            text-decoration: none;
-            color: var(--text-main);
-            transition: all 0.25s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+        a { color: inherit; text-decoration: none; }
+
+        /* ═══════════ STICKY NAV ═══════════ */
+        .sticky-nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            height: var(--nav-h);
+            background: rgba(6,10,20,0.88);
+            backdrop-filter: blur(20px) saturate(1.8);
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 28px;
+            transition: box-shadow 0.3s ease;
         }
-        .easy-action-btn:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        .sticky-nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.5); }
+        .nav-brand {
+            display: flex; align-items: center; gap: 10px;
         }
-        .easy-action-btn.btn-gold-card:hover { border-color: var(--c-gold); background: var(--c-gold-bg); }
-        .easy-action-btn.btn-cyan-card:hover { border-color: var(--c-cyan); background: var(--c-cyan-bg); }
-        .easy-action-btn.btn-purple-card:hover { border-color: var(--c-purple); background: var(--c-purple-bg); }
-        .easy-action-btn.btn-blue-card:hover { border-color: var(--c-blue); background: var(--c-blue-bg); }
-        .dns-helper-alert {
-            background: rgba(245, 158, 11, 0.08);
-            border: 1px solid rgba(245, 158, 11, 0.35);
-            border-radius: 12px;
-            padding: 16px 20px;
+        .nav-brand img { height: 32px; width: 32px; border-radius: 8px; filter: drop-shadow(0 0 8px rgba(6,182,212,0.4)); }
+        .nav-brand-text { font-weight: 800; font-size: 18px; letter-spacing: -0.3px; }
+        .nav-brand-text span { color: var(--cyan); }
+        .nav-ticker {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px; font-weight: 600;
+            background: var(--green-bg); color: var(--green);
+            padding: 3px 8px; border-radius: 6px;
+            border: 1px solid rgba(16,185,129,0.2);
+        }
+
+        .nav-links {
+            display: flex; gap: 2px; align-items: center;
+            background: rgba(255,255,255,0.03); border-radius: 10px; padding: 4px;
+        }
+        .nav-links a {
+            font-size: 12px; font-weight: 500; padding: 7px 14px;
+            border-radius: 8px; color: var(--text-dim);
+            transition: all 0.2s ease; white-space: nowrap;
+        }
+        .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+        .nav-links a.active { color: #fff; background: rgba(6,182,212,0.15); }
+
+        .nav-cta {
+            display: flex; align-items: center; gap: 10px;
+        }
+        .nav-status {
+            display: flex; align-items: center; gap: 6px;
+            font-size: 11px; color: var(--green); font-weight: 600;
+        }
+        .pulse { width: 7px; height: 7px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(16,185,129,0.5); } 50% { box-shadow: 0 0 0 6px rgba(16,185,129,0); } }
+
+        /* ═══════════ PAGE BODY ═══════════ */
+        .page-body { padding-top: var(--nav-h); }
+
+        /* ═══════════ HERO ═══════════ */
+        .hero {
+            position: relative; min-height: 85vh;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+        }
+        .hero-video {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            object-fit: cover; opacity: 0.25; filter: blur(1px);
+        }
+        .hero-gradient {
+            position: absolute; inset: 0;
+            background: linear-gradient(180deg, rgba(6,10,20,0.3) 0%, rgba(6,10,20,0.85) 70%, var(--bg-deep) 100%);
+        }
+        .hero-content {
+            position: relative; z-index: 2; text-align: center;
+            max-width: 800px; padding: 40px 24px;
+        }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(6,182,212,0.1); border: 1px solid rgba(6,182,212,0.2);
+            padding: 6px 16px; border-radius: 50px;
+            font-size: 12px; font-weight: 600; color: var(--cyan);
             margin-bottom: 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
+        }
+        .hero h1 {
+            font-size: clamp(36px, 5.5vw, 64px); font-weight: 900;
+            line-height: 1.1; letter-spacing: -1.5px;
+            margin-bottom: 20px;
+        }
+        .hero h1 .grad {
+            background: linear-gradient(135deg, var(--cyan), var(--blue), var(--purple));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero-sub {
+            font-size: 18px; color: var(--text-dim); max-width: 600px;
+            margin: 0 auto 32px; line-height: 1.7;
+        }
+        .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 12px 24px; border-radius: 10px; font-weight: 700;
+            font-size: 14px; border: none; cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .btn-primary { background: linear-gradient(135deg, var(--cyan), var(--blue)); color: #fff; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(6,182,212,0.3); }
+        .btn-gold { background: linear-gradient(135deg, var(--gold), #d97706); color: #000; }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,158,11,0.3); }
+        .btn-ghost {
+            background: rgba(255,255,255,0.05); color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .btn-ghost:hover { background: rgba(255,255,255,0.1); transform: translateY(-2px); }
+
+        /* ═══════════ TRUST BAR ═══════════ */
+        .trust-bar {
+            display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;
+            padding: 32px 24px; border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: rgba(255,255,255,0.01);
+        }
+        .trust-item {
+            display: flex; flex-direction: column; align-items: center; gap: 4px;
+        }
+        .trust-val { font-size: 22px; font-weight: 800; font-family: 'JetBrains Mono', monospace; }
+        .trust-label { font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+
+        /* ═══════════ SECTIONS ═══════════ */
+        .section { padding: 80px 24px; max-width: 1200px; margin: 0 auto; }
+        .section-label {
+            font-size: 12px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 2px; color: var(--cyan); margin-bottom: 8px;
+        }
+        .section-title { font-size: 36px; font-weight: 900; letter-spacing: -0.8px; margin-bottom: 12px; }
+        .section-desc { font-size: 16px; color: var(--text-dim); max-width: 600px; margin-bottom: 48px; }
+
+        /* ═══════════ HOW IT WORKS ═══════════ */
+        .how-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+        }
+        .how-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 32px;
+            transition: all 0.3s ease; position: relative; overflow: hidden;
+        }
+        .how-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0;
+            height: 3px; border-radius: var(--radius) var(--radius) 0 0;
+            transition: opacity 0.3s ease; opacity: 0;
+        }
+        .how-card:hover { transform: translateY(-4px); border-color: var(--border-glow); }
+        .how-card:hover::before { opacity: 1; }
+        .how-card:nth-child(1)::before { background: linear-gradient(90deg, var(--gold), #d97706); }
+        .how-card:nth-child(2)::before { background: linear-gradient(90deg, var(--cyan), var(--blue)); }
+        .how-card:nth-child(3)::before { background: linear-gradient(90deg, var(--green), var(--teal)); }
+        .how-num {
+            font-size: 48px; font-weight: 900; line-height: 1;
+            background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+        .how-icon { font-size: 28px; margin-bottom: 12px; }
+        .how-card h3 { font-size: 20px; font-weight: 800; margin-bottom: 10px; }
+        .how-card p { font-size: 14px; color: var(--text-dim); line-height: 1.7; }
+        .how-highlight {
+            display: inline-block; margin-top: 14px;
+            font-size: 13px; font-weight: 700; padding: 4px 12px;
+            border-radius: 6px;
+        }
+
+        /* ═══════════ EXPLORE GRID ═══════════ */
+        .explore-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+        }
+        .explore-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 24px;
+            transition: all 0.3s ease; cursor: pointer;
+            display: flex; flex-direction: column; justify-content: space-between;
+            min-height: 200px; position: relative; overflow: hidden;
+        }
+        .explore-card:hover { transform: translateY(-4px); }
+        .explore-card .ec-icon { font-size: 32px; margin-bottom: 12px; }
+        .explore-card h4 { font-size: 16px; font-weight: 800; margin-bottom: 6px; }
+        .explore-card p { font-size: 12px; color: var(--text-dim); line-height: 1.6; flex-grow: 1; }
+        .explore-card .ec-link {
+            font-size: 12px; font-weight: 700; margin-top: 14px;
+            display: flex; align-items: center; gap: 4px;
+            opacity: 0; transform: translateX(-8px);
+            transition: all 0.3s ease;
+        }
+        .explore-card:hover .ec-link { opacity: 1; transform: translateX(0); }
+
+        .ec-gold:hover { border-color: var(--gold); background: var(--gold-bg); }
+        .ec-gold .ec-link { color: var(--gold); }
+        .ec-cyan:hover { border-color: var(--cyan); background: var(--cyan-bg); }
+        .ec-cyan .ec-link { color: var(--cyan); }
+        .ec-purple:hover { border-color: var(--purple); background: var(--purple-bg); }
+        .ec-purple .ec-link { color: var(--purple); }
+        .ec-indigo:hover { border-color: var(--indigo); background: var(--indigo-bg); }
+        .ec-indigo .ec-link { color: var(--indigo); }
+        .ec-green:hover { border-color: var(--green); background: var(--green-bg); }
+        .ec-green .ec-link { color: var(--green); }
+        .ec-blue:hover { border-color: var(--blue); background: var(--blue-bg); }
+        .ec-blue .ec-link { color: var(--blue); }
+        .ec-teal:hover { border-color: var(--teal); background: var(--teal-bg); }
+        .ec-teal .ec-link { color: var(--teal); }
+
+        /* ═══════════ ADVISORY BANNER ═══════════ */
+        .advisory-strip {
+            background: linear-gradient(135deg, rgba(245,158,11,0.06), rgba(6,182,212,0.04));
+            border: 1px solid rgba(245,158,11,0.12);
+            border-radius: var(--radius); padding: 32px;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+            margin-top: 60px;
+        }
+        .adv-person { text-align: center; }
+        .adv-person h4 { font-size: 16px; font-weight: 800; color: var(--gold); }
+        .adv-person .adv-role { font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+        .adv-person p { font-size: 13px; color: var(--text-dim); margin-top: 8px; }
+
+        /* ═══════════ SAVINGS SECTION ═══════════ */
+        .savings-visual {
+            display: grid; grid-template-columns: 1fr auto 1fr; gap: 24px; align-items: center;
+            margin-top: 40px;
+        }
+        .sv-box {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 28px; text-align: center;
+        }
+        .sv-box h4 { font-size: 14px; font-weight: 600; color: var(--text-dim); margin-bottom: 8px; }
+        .sv-rate { font-size: 36px; font-weight: 900; font-family: 'JetBrains Mono', monospace; }
+        .sv-sub { font-size: 12px; color: var(--text-faint); margin-top: 4px; }
+        .sv-arrow { font-size: 28px; color: var(--green); animation: arrowBounce 1.5s infinite; }
+        @keyframes arrowBounce { 0%,100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
+
+        .savings-result {
+            text-align: center; margin-top: 32px;
+            background: var(--green-bg); border: 1px solid rgba(16,185,129,0.2);
+            border-radius: var(--radius); padding: 24px;
+        }
+        .savings-result .sr-label { font-size: 13px; font-weight: 600; color: var(--text-dim); }
+        .savings-result .sr-val {
+            font-size: 42px; font-weight: 900; color: var(--green);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* ═══════════ FOOTER ═══════════ */
+        .site-footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 24px; text-align: center;
+            font-size: 12px; color: var(--text-faint);
+        }
+        .footer-links { display: flex; gap: 24px; justify-content: center; margin-bottom: 12px; }
+        .footer-links a { color: var(--text-dim); transition: color 0.2s; }
+        .footer-links a:hover { color: var(--cyan); }
+
+        /* ═══════════ RESPONSIVE ═══════════ */
+        @media (max-width: 900px) {
+            .how-grid, .explore-grid { grid-template-columns: repeat(2, 1fr); }
+            .advisory-strip { grid-template-columns: 1fr; }
+            .savings-visual { grid-template-columns: 1fr; }
+            .sv-arrow { transform: rotate(90deg); justify-self: center; }
+            .nav-links { display: none; }
+        }
+        @media (max-width: 600px) {
+            .how-grid, .explore-grid { grid-template-columns: 1fr; }
+            .trust-bar { gap: 20px; }
         }
     </style>
 </head>
-<body class="dark-theme">
-    <div class="app-layout">
-        <!-- Top Telemetry Header with Official Logo -->
-        <header class="top-nav">
-            <div class="brand-group">
-                <a href="index.html" class="logo-box">
-                    <img src="assets/gate_mark_reverted.png" alt="Unykorn Logo" class="logo-img">
-                    <span class="logo-text">MMA<span class="highlight">.INC</span></span>
-                    <span class="sub-badge" id="stockPriceTag">NYSE: MMA $0.47</span>
-                </a>
-                <div class="divider"></div>
-                <div class="powered-by">
-                    <span class="powered-label">ORCHESTRATION</span>
-                    <span class="powered-val">UNYKORN.AI RAILS</span>
+<body>
+
+    <!-- ═══════════ STICKY NAVIGATION ═══════════ -->
+    <nav class="sticky-nav" id="stickyNav">
+        <div class="nav-brand">
+            <a href="index.html" style="display:flex;align-items:center;gap:10px;">
+                <img src="assets/gate_mark_reverted.png" alt="Unykorn Logo">
+                <span class="nav-brand-text">MMA<span>.INC</span></span>
+            </a>
+            <span class="nav-ticker">NYSE: MMA</span>
+        </div>
+
+        <div class="nav-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="train-to-earn.html">Train & Earn</a>
+            <a href="purses.html">Fight Purses</a>
+            <a href="prediction-markets.html">Predictions</a>
+            <a href="treasury.html">Treasury</a>
+            <a href="investors.html">Investors</a>
+            <a href="rwa-financing.html">Gym Finance</a>
+            <a href="compliance.html">Global</a>
+        </div>
+
+        <div class="nav-cta">
+            <div class="nav-status"><span class="pulse"></span> Live on Cloudflare</div>
+        </div>
+    </nav>
+
+    <div class="page-body">
+
+        <!-- ═══════════ HERO ═══════════ -->
+        <section class="hero">
+            <video autoplay loop muted playsinline class="hero-video">
+                <source src="assets/generate_a_real_mma_fight_for.mp4" type="video/mp4">
+            </video>
+            <div class="hero-gradient"></div>
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="pulse"></span>
+                    Live Platform — NYSE American: MMA
                 </div>
-                <div class="divider"></div>
-                <div class="powered-by">
-                    <span class="powered-label">QUALIFIED CUSTODY</span>
-                    <span class="powered-val bitgo-glow">BITGO ENTERPRISE</span>
-                </div>
-                <div class="divider"></div>
-                <div class="powered-by">
-                    <span class="powered-label">TRANSACTIONAL STABLECOIN</span>
-                    <span class="powered-val text-gold">USD1 (WORLD LIBERTY)</span>
+                <h1>The Future of <span class="grad">Combat Sports</span> Finance</h1>
+                <p class="hero-sub">
+                    We pay fighters instantly, reward gym members for training, 
+                    and save combat sports businesses over <strong>$660,000 per year</strong> in processing fees.
+                </p>
+                <div class="hero-actions">
+                    <a href="train-to-earn.html" class="btn btn-gold">🪙 Get Paid to Train</a>
+                    <a href="purses.html" class="btn btn-primary">⚡ Settle a Fight Purse</a>
+                    <a href="#how-it-works" class="btn btn-ghost">Learn How It Works ↓</a>
                 </div>
             </div>
+        </section>
 
-            <div class="header-metrics">
-                <div class="metric-chip">
-                    <span class="chip-label">TREASURY FLOAT (T-BILLS)</span>
-                    <span class="chip-val text-gold" id="headerTreasuryVal">$4,000,000.00</span>
-                </div>
-                <div class="metric-chip">
-                    <span class="chip-label">DAILY YIELD (5.25%)</span>
-                    <span class="chip-val text-green" id="headerDailyYield">+$575.34 / day</span>
-                </div>
-                <div class="metric-chip">
-                    <span class="chip-label">TOTAL CAPITAL ACCESS</span>
-                    <span class="chip-val text-cyan" id="headerCapitalAccess">$10.25M USD</span>
-                </div>
-                <div class="system-status-indicator">
-                    <span class="pulse-dot"></span>
-                    <span>ALL RAILS LIVE</span>
-                </div>
+        <!-- ═══════════ TRUST BAR ═══════════ -->
+        <div class="trust-bar">
+            <div class="trust-item">
+                <span class="trust-val" style="color:var(--gold);">$4.0M</span>
+                <span class="trust-label">Treasury in BitGo Bank</span>
             </div>
-        </header>
-
-        <!-- Main Navigation Bar with Links to All Pages -->
-        <nav class="sub-nav">
-            <div class="nav-tabs">
-                <a href="index.html" class="nav-link active"><span class="tab-icon">🏠</span> Overview</a>
-                <a href="purses.html" class="nav-link"><span class="tab-icon">⚡</span> Purse Settlement</a>
-                <a href="train-to-earn.html" class="nav-link tab-gold"><span class="tab-icon">🪙</span> USD1 & UFC GYM</a>
-                <a href="prediction-markets.html" class="nav-link tab-purple"><span class="tab-icon">🎯</span> Prediction Markets</a>
-                <a href="institutional-hedging.html" class="nav-link tab-indigo"><span class="tab-icon">🛡️</span> Institutional Hedging</a>
-                <a href="rwa-financing.html" class="nav-link"><span class="tab-icon">🏢</span> Gym RWA Escrow</a>
-                <a href="xp-passport.html" class="nav-link"><span class="tab-icon">🪪</span> XP Passport</a>
-                <a href="treasury.html" class="nav-link tab-blue"><span class="tab-icon">🏛️</span> BitGo Treasury</a>
-                <a href="investors.html" class="nav-link"><span class="tab-icon">📈</span> MMA (NYSE) & Model</a>
-                <a href="compliance.html" class="nav-link tab-teal"><span class="tab-icon">🌐</span> Compliance</a>
+            <div class="trust-item">
+                <span class="trust-val" style="color:var(--green);">5.25%</span>
+                <span class="trust-label">Annual Yield on T-Bills</span>
             </div>
-        </nav>
-
-        <!-- Main Content Area -->
-        <main class="main-viewport">
-
-            <!-- Cloudflare Live DNS Alert Banner -->
-            <div class="dns-helper-alert">
-                <div style="display:flex;align-items:center;gap:12px;">
-                    <span style="font-size:22px;">🌐</span>
-                    <div>
-                        <strong style="color:var(--c-gold);font-size:14px;">Cloudflare Tunnel Ingress Configured for mma.unykorn.ai</strong>
-                        <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">
-                            Local port <strong>8888</strong> is connected to Cloudflare Tunnel <code style="color:var(--c-cyan);">6eaf5d3b-6aa1-448e-a8a9-a6def5534996</code>.
-                        </div>
-                    </div>
-                </div>
-                <div style="display:flex;gap:8px;">
-                    <a href="https://dash.cloudflare.com/07bcc4a189ef176261b818409c95891f/unykorn.ai/dns/records" target="_blank" class="btn btn-outline btn-sm">
-                        ⚙️ Add CNAME in Cloudflare DNS ➔
-                    </a>
-                </div>
+            <div class="trust-item">
+                <span class="trust-val" style="color:var(--cyan);">15,300+</span>
+                <span class="trust-label">Partner Gyms & Academies</span>
             </div>
+            <div class="trust-item">
+                <span class="trust-val" style="color:var(--purple);">$21M+</span>
+                <span class="trust-label">Annual Payment Run-Rate</span>
+            </div>
+            <div class="trust-item">
+                <span class="trust-val" style="color:var(--blue);">T+0</span>
+                <span class="trust-label">Instant Settlement</span>
+            </div>
+        </div>
 
-            <!-- Hero Video Banner with Real MMA Fight Reel -->
-            <div class="hero-video-banner">
-                <video autoplay loop muted playsinline class="hero-video-elem" id="heroFightVideo">
-                    <source src="assets/generate_a_real_mma_fight_for.mp4" type="video/mp4">
-                    <source src="assets/use_our_logos_and_colors_and_h.mp4" type="video/mp4">
-                </video>
-                <div class="hero-video-overlay">
-                    <span class="hero-tagline">⚡ Real Combat Sports Economy • Institutional Web3 Rails</span>
-                    <h1 class="hero-title">Powering the $21M+ Global Combat Economy</h1>
-                    <p class="hero-desc">
-                        Bridging <strong>Mixed Martial Arts Group Limited (NYSE American: MMA)</strong>, <strong>World Liberty Financial USD1 Stablecoin</strong>, and <strong>BitGo Enterprise Qualified Custody</strong> across 15,300+ gyms, UFC GYM franchise studios, and live worldwide fight cards.
+        <!-- ═══════════ HOW IT WORKS ═══════════ -->
+        <section class="section" id="how-it-works">
+            <span class="section-label">Simple as 1-2-3</span>
+            <h2 class="section-title">How MMA.INC Works</h2>
+            <p class="section-desc">No blockchain knowledge needed. Here's what we do for every person in combat sports.</p>
+
+            <div class="how-grid">
+                <div class="how-card">
+                    <div class="how-num">01</div>
+                    <div class="how-icon">🥋</div>
+                    <h3>Fighters & Gym Members</h3>
+                    <p>
+                        Walk into any partner gym, check in on your phone, and <strong>earn $2.50 in real USD1 stablecoin</strong> plus 50 XP points — every single session. Your money goes straight to your digital wallet. No banks. No delays.
                     </p>
-                    <div style="display:flex;gap:12px;margin-top:16px;">
-                        <a href="train-to-earn.html" class="btn btn-gold">🪙 "Train-to-Earn" USD1 Portal</a>
-                        <a href="purses.html" class="btn btn-primary">⚡ Settle Fight Purse</a>
-                        <a href="investors.html" class="btn btn-outline">📈 View NYSE Financials</a>
-                    </div>
+                    <span class="how-highlight" style="background:var(--gold-bg);color:var(--gold);">$2.50 per check-in</span>
+                </div>
+
+                <div class="how-card">
+                    <div class="how-num">02</div>
+                    <div class="how-icon">🏢</div>
+                    <h3>Gym Owners & Promoters</h3>
+                    <p>
+                        Stop losing <strong>4% of every dollar</strong> to credit card companies. Our payment rails charge just 0.55%, saving the average gym network over <strong>$660,000 per year</strong>. Fight purses split to the penny, instantly.
+                    </p>
+                    <span class="how-highlight" style="background:var(--cyan-bg);color:var(--cyan);">Save $660K+ / year</span>
+                </div>
+
+                <div class="how-card">
+                    <div class="how-num">03</div>
+                    <div class="how-icon">📈</div>
+                    <h3>Fans & Investors</h3>
+                    <p>
+                        MMA.INC is a <strong>publicly traded company on NYSE American</strong>, backed by Donald Trump Jr. and Conor McGregor. Our $4M treasury earns 5.25% yield in BitGo's insured bank vault.
+                    </p>
+                    <span class="how-highlight" style="background:var(--green-bg);color:var(--green);">NYSE: MMA — Public & Audited</span>
                 </div>
             </div>
+        </section>
 
-            <!-- Easy 3-Step "Plain English" Guide -->
-            <div class="easy-hero-card">
-                <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border-color);padding-bottom:16px;">
+        <!-- ═══════════ EXPLORE PLATFORM ═══════════ -->
+        <section class="section">
+            <span class="section-label">Explore the Platform</span>
+            <h2 class="section-title">Everything in One Ecosystem</h2>
+            <p class="section-desc">Click any card to dive into that part of the platform.</p>
+
+            <div class="explore-grid">
+                <a href="train-to-earn.html" class="explore-card ec-gold">
                     <div>
-                        <span class="badge badge-warning" style="font-size:11px;">Beginner Friendly</span>
-                        <h2 style="font-size:24px;font-weight:900;margin-top:6px;">MMA.INC & Unykorn Explained in 30 Seconds</h2>
+                        <div class="ec-icon">🪙</div>
+                        <h4>Train & Earn</h4>
+                        <p>Check in at UFC GYMs and BJJLink academies. Earn $2.50 USD1 stablecoin + XP every session.</p>
                     </div>
-                    <span style="font-size:13px;color:var(--text-muted);">No blockchain background required</span>
-                </div>
+                    <div class="ec-link">Try the Simulator →</div>
+                </a>
 
-                <div class="beginner-steps-grid" style="margin-top:20px;">
-                    <!-- Step 1 -->
-                    <div class="beginner-step-box">
-                        <div class="step-number">01</div>
-                        <div class="step-heading text-gold">For Gym Members & Students</div>
-                        <div class="step-text">
-                            <strong>"Get Paid to Train":</strong> Check in to train at verified UFC GYMs or BJJLink academies and automatically earn <strong>$2.50 in USD1 cash rewards</strong> and XP level points on your smartphone.
-                        </div>
-                    </div>
-
-                    <!-- Step 2 -->
-                    <div class="beginner-step-box">
-                        <div class="step-number">02</div>
-                        <div class="step-heading text-cyan">For Gym Owners & Promoters</div>
-                        <div class="step-text">
-                            <strong>Save 4% in Card Fees:</strong> Gyms save over <strong>$660,000/year</strong> by ditching high credit card fees. Fight purses disburse to fighters, coaches, and managers instantly with exact penny-perfect splits.
-                        </div>
-                    </div>
-
-                    <!-- Step 3 -->
-                    <div class="beginner-step-box">
-                        <div class="step-number">03</div>
-                        <div class="step-heading text-green">For Fight Fans & Investors</div>
-                        <div class="step-text">
-                            <strong>Institutional Safety:</strong> A publicly traded company (NYSE: MMA) backed by <strong>Donald Trump Jr.</strong> and <strong>Conor McGregor</strong>, with a $4M cash vault earning 5.25% interest inside BitGo Bank.
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 4 Easy Action Buttons -->
-                <div class="easy-action-grid">
-                    <a href="train-to-earn.html" class="easy-action-btn btn-gold-card">
-                        <div>
-                            <span style="font-size:24px;">🪙</span>
-                            <h4 style="font-size:15px;font-weight:800;margin-top:8px;">Get Paid to Train</h4>
-                            <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Log a check-in and earn $2.50 USD1.</p>
-                        </div>
-                        <span class="text-gold" style="font-size:12px;font-weight:700;margin-top:10px;">Try Simulator ➔</span>
-                    </a>
-
-                    <a href="purses.html" class="easy-action-btn btn-cyan-card">
-                        <div>
-                            <span style="font-size:24px;">⚡</span>
-                            <h4 style="font-size:15px;font-weight:800;margin-top:8px;">Purse Settlement</h4>
-                            <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">10,000 BPS zero-dust split execution.</p>
-                        </div>
-                        <span class="text-cyan" style="font-size:12px;font-weight:700;margin-top:10px;">Settle Fight ➔</span>
-                    </a>
-
-                    <a href="prediction-markets.html" class="easy-action-btn btn-purple-card">
-                        <div>
-                            <span style="font-size:24px;">🎯</span>
-                            <h4 style="font-size:15px;font-weight:800;margin-top:8px;">Fan Prediction Pools</h4>
-                            <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Predict fight finishes & strike counts.</p>
-                        </div>
-                        <span class="text-purple" style="font-size:12px;font-weight:700;margin-top:10px;">Pick Winners ➔</span>
-                    </a>
-
-                    <a href="treasury.html" class="easy-action-btn btn-blue-card">
-                        <div>
-                            <span style="font-size:24px;">🏛️</span>
-                            <h4 style="font-size:15px;font-weight:800;margin-top:8px;">BitGo $4.0M Treasury</h4>
-                            <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Tokenized T-Bills earning 5.25% yield.</p>
-                        </div>
-                        <span class="text-blue" style="font-size:12px;font-weight:700;margin-top:10px;">View Vaults ➔</span>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Interactive 8-Corner Octagon Arena Visualizer -->
-            <section class="octagon-section">
-                <div class="card-title">
+                <a href="purses.html" class="explore-card ec-cyan">
                     <div>
-                        <h2 style="font-size:22px;font-weight:800;">🏟️ The 8-Corner Combat Sports Ecosystem (Octagon Arena)</h2>
-                        <p class="subtitle">Click any corner of the Octagon to access that specific operational desk</p>
+                        <div class="ec-icon">⚡</div>
+                        <h4>Fight Purse Settlement</h4>
+                        <p>Split bout purses across fighters, corners, managers, and tax withholdings with zero-dust precision.</p>
                     </div>
-                    <span class="badge badge-info">Octagon Architecture</span>
+                    <div class="ec-link">Settle a Purse →</div>
+                </a>
+
+                <a href="prediction-markets.html" class="explore-card ec-purple">
+                    <div>
+                        <div class="ec-icon">🎯</div>
+                        <h4>Fight Predictions</h4>
+                        <p>Predict bout outcomes, finish rounds, and strike counts. Multi-oracle consensus ensures fairness.</p>
+                    </div>
+                    <div class="ec-link">Make a Pick →</div>
+                </a>
+
+                <a href="institutional-hedging.html" class="explore-card ec-indigo">
+                    <div>
+                        <div class="ec-icon">🛡️</div>
+                        <h4>Risk Hedging</h4>
+                        <p>Institutional OTC swaps for event cancellation, PPV underperformance, and cross-border FX risk.</p>
+                    </div>
+                    <div class="ec-link">View OTC Desk →</div>
+                </a>
+
+                <a href="rwa-financing.html" class="explore-card ec-green">
+                    <div>
+                        <div class="ec-icon">🏢</div>
+                        <h4>Gym Financing</h4>
+                        <p>Tokenized facility expansion loans, equipment escrows, and Zebra Athletics matting purchase orders.</p>
+                    </div>
+                    <div class="ec-link">View Escrows →</div>
+                </a>
+
+                <a href="xp-passport.html" class="explore-card ec-cyan">
+                    <div>
+                        <div class="ec-icon">🪪</div>
+                        <h4>XP Passport</h4>
+                        <p>Your on-chain identity with belt ranks, training history, XP levels, and verified credentials.</p>
+                    </div>
+                    <div class="ec-link">View Registry →</div>
+                </a>
+
+                <a href="treasury.html" class="explore-card ec-blue">
+                    <div>
+                        <div class="ec-icon">🏛️</div>
+                        <h4>$4M Treasury</h4>
+                        <p>BitGo Enterprise qualified custody vaults holding tokenized T-Bills earning 5.25% annual yield.</p>
+                    </div>
+                    <div class="ec-link">Open Treasury →</div>
+                </a>
+
+                <a href="investors.html" class="explore-card ec-gold">
+                    <div>
+                        <div class="ec-icon">📈</div>
+                        <h4>NYSE Financials</h4>
+                        <p>$4M placement at $1.00/share (163% premium), 0% warrants, 21–41 month cash runway model.</p>
+                    </div>
+                    <div class="ec-link">View Model →</div>
+                </a>
+            </div>
+        </section>
+
+        <!-- ═══════════ COST SAVINGS VISUAL ═══════════ -->
+        <section class="section">
+            <span class="section-label">Why Switch</span>
+            <h2 class="section-title">See the Savings</h2>
+            <p class="section-desc">Compare traditional card processing fees vs. our institutional-grade payment rails.</p>
+
+            <div class="savings-visual">
+                <div class="sv-box" style="border-color:rgba(239,68,68,0.2);">
+                    <h4>Traditional Card Processing</h4>
+                    <div class="sv-rate" style="color:var(--red);">3.70%</div>
+                    <div class="sv-sub">$777,000 / year on $21M volume</div>
+                    <div style="font-size:11px;color:var(--text-faint);margin-top:8px;">Stripe · Authorize.net · T+2 to T+5 delays</div>
                 </div>
-
-                <div class="octagon-grid">
-                    <!-- Corner 1: Purses -->
-                    <div class="octagon-card">
-                        <div>
-                            <span class="octagon-corner-tag text-cyan">Corner 01 • Smart Rails</span>
-                            <h3 class="octagon-card-title">Bout Purse Splitting</h3>
-                            <p class="octagon-card-desc">10,000 BPS zero-dust split contract with instant BitGo MPC payouts to fighters, corners, and state tax withholdings.</p>
-                        </div>
-                        <a href="purses.html" class="octagon-action-link text-cyan">Enter Purse Desk ➔</a>
-                    </div>
-
-                    <!-- Corner 2: USD1 Train-to-Earn -->
-                    <div class="octagon-card" style="border-color:rgba(245,158,11,0.3);">
-                        <div>
-                            <span class="octagon-corner-tag text-gold">Corner 02 • Stablecoin</span>
-                            <h3 class="octagon-card-title">USD1 "Train-to-Earn"</h3>
-                            <p class="octagon-card-desc">World Liberty Financial USD1 rewards ($2.50/check-in) across 15,300+ academies and UFC GYM BJJ studios.</p>
-                        </div>
-                        <a href="train-to-earn.html" class="octagon-action-link text-gold">Enter Train Portal ➔</a>
-                    </div>
-
-                    <!-- Corner 3: UFC GYM Partnership -->
-                    <div class="octagon-card">
-                        <div>
-                            <span class="octagon-corner-tag text-cyan">Corner 03 • Global Enterprise</span>
-                            <h3 class="octagon-card-title">UFC GYM BJJLink Admin+</h3>
-                            <p class="octagon-card-desc">Official software powering all new UFC GYM BJJ franchise studios, automated billing, and athlete tracking.</p>
-                        </div>
-                        <a href="train-to-earn.html" class="octagon-action-link text-cyan">Explore Franchise ➔</a>
-                    </div>
-
-                    <!-- Corner 4: Oracles -->
-                    <div class="octagon-card" style="border-color:rgba(168,85,247,0.3);">
-                        <div>
-                            <span class="octagon-corner-tag text-purple">Corner 04 • Multi-Oracle</span>
-                            <h3 class="octagon-card-title">3-of-4 Signature Quorum</h3>
-                            <p class="octagon-card-desc">Athletic commission scorecards, ringside APIs, cage sensors, and broadcaster feeds with a 5-min dispute window.</p>
-                        </div>
-                        <a href="prediction-markets.html" class="octagon-action-link text-purple">View Telemetry ➔</a>
-                    </div>
-
-                    <!-- Corner 5: Prediction Markets -->
-                    <div class="octagon-card" style="border-color:rgba(168,85,247,0.3);">
-                        <div>
-                            <span class="octagon-corner-tag text-purple">Corner 05 • Fan Engagement</span>
-                            <h3 class="octagon-card-title">Fan Prediction Pools</h3>
-                            <p class="octagon-card-desc">Predict bout winners, finish rounds, and strike totals with 1.5% protocol fee collection and XP multipliers.</p>
-                        </div>
-                        <a href="prediction-markets.html" class="octagon-action-link text-purple">Open Markets ➔</a>
-                    </div>
-
-                    <!-- Corner 6: Institutional Hedging -->
-                    <div class="octagon-card" style="border-color:rgba(99,102,241,0.3);">
-                        <div>
-                            <span class="octagon-corner-tag text-indigo">Corner 06 • Risk Desk</span>
-                            <h3 class="octagon-card-title">Susquehanna OTC Hedging</h3>
-                            <p class="octagon-card-desc">ISDA 2002 swaps for Main Event Cancellations, PPV Underperformance, and JPY/THB FX risk with zero-unwrap margin.</p>
-                        </div>
-                        <a href="institutional-hedging.html" class="octagon-action-link text-indigo">Open OTC Desk ➔</a>
-                    </div>
-
-                    <!-- Corner 7: Zebra PO Financing -->
-                    <div class="octagon-card">
-                        <div>
-                            <span class="octagon-corner-tag text-green">Corner 07 • Real-World Assets</span>
-                            <h3 class="octagon-card-title">Zebra Equipment POs</h3>
-                            <p class="octagon-card-desc">Milestone escrows for Zebra Athletics matting manufacturing and TrainAlta academy facility fitouts.</p>
-                        </div>
-                        <a href="rwa-financing.html" class="octagon-action-link text-green">View Escrows ➔</a>
-                    </div>
-
-                    <!-- Corner 8: Qualified Treasury -->
-                    <div class="octagon-card" style="border-color:rgba(59,130,246,0.3);">
-                        <div>
-                            <span class="octagon-corner-tag text-blue">Corner 08 • Qualified Custody</span>
-                            <h3 class="octagon-card-title">BitGo $4.0M Treasury</h3>
-                            <p class="octagon-card-desc">OCC-regulated Trust Bank holding the $4.0M private placement cash in tokenized T-Bills earning +$210,000/year.</p>
-                        </div>
-                        <a href="treasury.html" class="octagon-action-link text-blue">Open Treasury ➔</a>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Live Telemetry Section -->
-            <div class="two-col-layout">
-                <!-- Left: Recent Bouts & Settlements -->
-                <div class="col card card-glass">
-                    <div class="card-title">
-                        <h3>⚡ Live Bout Settlement Feed</h3>
-                        <a href="purses.html" style="font-size:12px;color:var(--c-cyan);text-decoration:none;">View All Bouts ➔</a>
-                    </div>
-                    <div class="bout-list" id="boutListContainer">
-                        <!-- Populated via JS -->
-                    </div>
-                </div>
-
-                <!-- Right: Active Prediction Pools & Oracle Consensus -->
-                <div class="col card card-glass">
-                    <div class="card-title">
-                        <h3>📡 Live Oracle Quorum & Prediction Pools</h3>
-                        <a href="prediction-markets.html" style="font-size:12px;color:var(--c-purple);text-decoration:none;">Open Market Desk ➔</a>
-                    </div>
-                    <div class="pred-markets-list" id="predMarketsContainer">
-                        <!-- Populated via JS -->
-                    </div>
+                <div class="sv-arrow">→</div>
+                <div class="sv-box" style="border-color:rgba(16,185,129,0.2);">
+                    <h4>Unykorn + BitGo + USD1 Rails</h4>
+                    <div class="sv-rate" style="color:var(--green);">0.55%</div>
+                    <div class="sv-sub">$115,500 / year on $21M volume</div>
+                    <div style="font-size:11px;color:var(--text-faint);margin-top:8px;">Zero chargebacks · T+0 instant settlement</div>
                 </div>
             </div>
+            <div class="savings-result">
+                <div class="sr-label">Annual Savings for Combat Sports Businesses</div>
+                <div class="sr-val">$661,500</div>
+            </div>
+        </section>
 
-        </main>
+        <!-- ═══════════ ADVISORY ═══════════ -->
+        <section class="section">
+            <span class="section-label">Backed By</span>
+            <h2 class="section-title">Strategic Advisory & Partners</h2>
+
+            <div class="advisory-strip">
+                <div class="adv-person">
+                    <h4>Donald Trump Jr.</h4>
+                    <div class="adv-role">Strategic Advisor</div>
+                    <p>Co-founder of World Liberty Financial (USD1). Driving media reach and mainstream digital asset strategy.</p>
+                </div>
+                <div class="adv-person">
+                    <h4>Conor McGregor</h4>
+                    <div class="adv-role">Key Shareholder</div>
+                    <p>Combat sports icon accelerating global customer conversion across 700M+ combat fans worldwide.</p>
+                </div>
+                <div class="adv-person">
+                    <h4 style="color:var(--cyan);">UFC GYM Global</h4>
+                    <div class="adv-role">Official Platform Partner</div>
+                    <p>BJJLink selected as official gym management software for all new UFC GYM BJJ franchise studios.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════ FOOTER ═══════════ -->
+        <footer class="site-footer">
+            <div class="footer-links">
+                <a href="train-to-earn.html">Train & Earn</a>
+                <a href="purses.html">Fight Purses</a>
+                <a href="prediction-markets.html">Predictions</a>
+                <a href="treasury.html">Treasury</a>
+                <a href="investors.html">Investors</a>
+                <a href="compliance.html">Global Compliance</a>
+            </div>
+            <p>© 2026 Mixed Martial Arts Group Limited (NYSE American: MMA) — Powered by Unykorn.ai Rails & BitGo Enterprise Custody</p>
+        </footer>
+
     </div>
 
-    <script src="app.js"></script>
+    <script>
+        // Sticky nav scroll effect
+        const nav = document.getElementById('stickyNav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 20);
+        });
+    </script>
 </body>
 </html>
