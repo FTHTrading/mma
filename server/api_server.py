@@ -110,6 +110,81 @@ class MMACommandServerHandler(SimpleHTTPRequestHandler):
             }).encode("utf-8"))
             return
 
+        elif path == "/api/promotions/asian":
+            self._set_json_headers(200)
+            self.wfile.write(json.dumps({
+                "success": True,
+                "promotions": [
+                    {
+                        "id": "rizin",
+                        "name": "RIZIN Fighting Federation",
+                        "country": "Japan 🇯🇵",
+                        "region": "Tokyo / Saitama",
+                        "hubs": "Saitama Super Arena & Tokyo Dome",
+                        "officialWebsite": "https://jp.rizinff.com",
+                        "videoSrc": "assets/generate_a_real_mma_fight_for.mp4",
+                        "regulators": "JFSA & JVCEA",
+                        "withholdingTax": "20.42% NTA Art. 161",
+                        "settlementToken": "JPYC & USD1",
+                        "description": "Japan's premier mega-combat sports organization, successor to Pride FC."
+                    },
+                    {
+                        "id": "one",
+                        "name": "ONE Championship",
+                        "country": "Singapore 🇸🇬 / Thailand 🇹🇭",
+                        "region": "Singapore & Bangkok",
+                        "hubs": "Singapore Indoor Stadium & Lumpinee Stadium",
+                        "officialWebsite": "https://onefc.com",
+                        "videoSrc": "assets/Got_it_Let_s_pivot_and_focus.mp4",
+                        "regulators": "MAS & SAT Thailand",
+                        "withholdingTax": "15.0% IRAS / P.N.D. 53",
+                        "settlementToken": "USD1 & THB",
+                        "description": "Asia's largest global sports media property featuring MMA, Muay Thai, and Kickboxing."
+                    },
+                    {
+                        "id": "k1",
+                        "name": "K-1 World GP & RISE",
+                        "country": "Japan 🇯🇵",
+                        "region": "Tokyo & Yokohama",
+                        "hubs": "Yoyogi National Gymnasium & Yokohama Arena",
+                        "officialWebsite": "https://k-1.co.jp",
+                        "videoSrc": "assets/use_our_logos_and_colors_and_h.mp4",
+                        "regulators": "JFSA & JVCEA",
+                        "withholdingTax": "20.42% NTA Art. 161",
+                        "settlementToken": "JPYC & USD1",
+                        "description": "The legendary Japanese striking and kickboxing championship circuit."
+                    },
+                    {
+                        "id": "roadfc",
+                        "name": "ROAD FC & Black Combat",
+                        "country": "South Korea 🇰🇷",
+                        "region": "Seoul & Busan",
+                        "hubs": "Jangchung Gymnasium & KINTEX",
+                        "officialWebsite": "https://roadfc.com",
+                        "videoSrc": "assets/Kevanbtc_create_a_profession.mp4",
+                        "regulators": "FSC & KOC",
+                        "withholdingTax": "22.0% NTS Foreign Athlete",
+                        "settlementToken": "KRW & USD1",
+                        "description": "South Korea's dominant MMA promotion & viral combat series."
+                    },
+                    {
+                        "id": "pflmena",
+                        "name": "PFL MENA & BRAVE CF",
+                        "country": "Middle East / UAE 🇦🇪 / KSA 🇸🇦",
+                        "region": "Riyadh, Abu Dhabi & Manama",
+                        "hubs": "Etihad Arena & Kingdom Arena",
+                        "officialWebsite": "https://pflmma.com",
+                        "videoSrc": "assets/Regenerate_this_using_my_exact.mp4",
+                        "regulators": "VARA & ADGM",
+                        "withholdingTax": "0.0% Tax-Free",
+                        "settlementToken": "USD1 & Sovereign Escrow",
+                        "description": "Middle East combat hub backed by sovereign investment & tax-free fight purses."
+                    }
+                ]
+            }).encode("utf-8"))
+            return
+
+
         # NEW ENDPOINTS FOR PREDICTION MARKETS & ORACLE DESK
         elif path == "/api/prediction/markets":
             self._set_json_headers(200)
