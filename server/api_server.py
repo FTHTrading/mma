@@ -283,11 +283,16 @@ def run_server(preferred_port: int = 8888):
     with open(port_file, "w") as f:
         f.write(str(active_port))
 
-    try:
-        httpd.serve_forever()
-    except KeyboardInterrupt:
-        print("\nServer shutting down gracefully.")
-        httpd.server_close()
+    while True:
+        try:
+            httpd.serve_forever()
+        except KeyboardInterrupt:
+            print("\nServer shutting down gracefully.")
+            httpd.server_close()
+            break
+        except Exception as e:
+            print(f"[WARN] Server loop exception: {e}")
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8888))
