@@ -699,4 +699,127 @@ function startRealtimeYieldTicker() {
         const elem = document.getElementById("accumYieldVal");
         if (elem) elem.innerText = `$${accumulated.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
     }, 1000);
+
+    loadInstitutionalPlatform();
 }
+
+let activeIntentId = null;
+
+async function loadInstitutionalPlatform() {
+    try {
+        const [balRes, recRes, evRes] = await Promise.all([
+            fetch('/api/v1/ledger/balances').then(r => r.json()).catch(() => null),
+            fetch('/api/v1/reconcile/run').then(r => r.json()).catch(() => null),
+            fetch('/api/v1/evidence/receipts').then(r => r.json()).catch(() => null)
+        ]);
+
+        if (balRes && balRes.accounts) {
+            const container = document.getElementById("subledgerAccountsTable");
+            if (container) {
+                container.innerHTML = Object.entries(balRes.accounts).map(([name, acc]) => `
+                    <tr>
+                        <td style="font-family: monospace; font-weight: bold; color: #00F2FE;">${name}</td>
+                        <td><span class="chip-val text-gold">${acc.type}</span></td>
+                        <td style="font-family: monospace;">${acc.balanceMinor.toLocaleString()}</td>
+                        <td style="font-family: monospace; font-weight: bold;">$${(acc.balanceMinor / 100).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} USD</td>
+                    </tr>
+                `).join("");
+            }
+        }
+
+        if (recRes) {
+            const statusTag = document.getElementById("reconStatusTag");
+            if (statusTag) statusTag.innerText = recRes.status === "RECONCILED" ? "3-WAY MATCH VERIFIED" : "DISCREPANCY DETECTED";
+        }
+
+        if (evRes && evRes.receipts) {
+            const container = document.getElementById("evidenceReceiptsTable");
+            if (container) {
+                container.innerHTML = evRes.receipts.slice(-5).map(r => `
+                    <tr>
+                        <td style="font-family: monospace; font-weight: bold;">#${r.receiptIndex}</td>
+                        <td><span class="chip-val text-green">${r.eventType}</span></td>
+                        <td style="font-family: monospace; font-size: 10px; color: rgba(255,255,255,0.6);">${r.prevHash.substring(0, 16)}...</td>
+                        <td style="font-family: monospace; font-size: 10px; color: #00F2FE;">${r.receiptHash.substring(0, 16)}...</td>
+                        <td style="font-size: 11px;">${(r.operatorSignatures || []).join(", ")}</td>
+                        <td style="font-size: 11px; color: rgba(255,255,255,0.7);">${r.timestamp}</td>
+                    </tr>
+                `).join("");
+            }
+        }
+    } catch (e) {
+        console.log("Institutional platform load error:", e);
+    }
+}
+
+async function createTransferIntent() {
+    const dest = document.getElementById("intentDest").value;
+    const amount = parseInt(document.getElementById("intentAmount").value, 10);
+
+    try {
+        const res = await fetch('/api/v1/transfer-intents/create', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                requesterId: 'kevan@unykorn.ai',
+                sourceAccount: 'Asset:Bank:Fiat',
+                destinationAddress: dest,
+                assetSymbol: 'USDC',
+                amountMinorUnits: amount,
+                purpose: 'Institutional Treasury Liquidity Settlement'
+            })
+        }).then(r => r.json());
+
+        if (res.success && res.intent) {
+            const intent = res.intent;
+            activeIntentId = intent.intentId;
+            document.getElementById("stg-intentId").innerText = intent.intentId;
+            document.getElementById("stg-policyId").innerText = intent.stageIds.policyDecisionId || "Denied";
+            
+            if (intent.status === "POLICY_EVALUATED") {
+                document.getElementById("approvalActionBox").style.display = "block";
+                alert(`Stage 1 & 2 Complete! Policy Verdict: ${intent.policyVerdict}. Requester identity validated. Click Stage 2 Approval button to complete operator signoff.`);
+            } else {
+                alert(`Transfer Intent Blocked by Policy Engine! Verdict: ${intent.policyVerdict}`);
+            }
+        }
+    } catch (e) {
+        alert("Error creating transfer intent: " + e);
+    }
+}
+
+async function approveTransferIntent() {
+    if (!activeIntentId) {
+        alert("No active transfer intent to approve.");
+        return;
+    }
+
+    try {
+        const res = await fetch('/api/v1/transfer-intents/approve', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                intentId: activeIntentId,
+                approvers: ["Operator_Unykorn_01", "Operator_BitGo_02"]
+            })
+        }).then(r => r.json());
+
+        if (res.success && res.sealedIntent) {
+            const s = res.sealedIntent;
+            document.getElementById("stg-approvalId").innerText = s.stageIds.approvalSetId;
+            document.getElementById("stg-custodyRef").innerText = s.stageIds.custodyReference;
+            document.getElementById("stg-chainHash").innerText = s.stageIds.chainTxHash;
+            document.getElementById("stg-settleRef").innerText = s.stageIds.settlementReference;
+            document.getElementById("stg-ledgerId").innerText = s.stageIds.ledgerJournalId;
+            document.getElementById("stg-reconId").innerText = s.stageIds.reconciliationRunId;
+            document.getElementById("stg-receiptHash").innerText = s.stageIds.receiptHash.substring(0, 16) + "...";
+            
+            document.getElementById("approvalActionBox").style.display = "none";
+            alert("9-Stage Lifecycle Execution Complete! Hash-chained evidence receipt sealed in .anvil/ops.receipts.jsonl!");
+            loadInstitutionalPlatform();
+        }
+    } catch (e) {
+        alert("Error approving intent: " + e);
+    }
+}
+

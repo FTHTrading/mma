@@ -26,6 +26,13 @@ from institutional_hedging import institutional_hedging_desk
 from prediction_engine import prediction_engine
 from corporate_profile import corporate_profile
 
+from workflow_orchestrator.orchestrator import orchestrator
+from ledger_service.subledger_engine import subledger_engine
+from policy_service.policy_engine import policy_engine
+from evidence_service.receipt_engine import evidence_engine
+from bitgo_adapter.bitgo_adapter import bitgo_adapter
+from reconciliation_service.reconciler import reconciler
+
 WEB_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "web")
 
 class MMACommandServerHandler(SimpleHTTPRequestHandler):
@@ -66,6 +73,41 @@ class MMACommandServerHandler(SimpleHTTPRequestHandler):
                 "nyseEntity": "MMA.INC (NYSE American: MMA)",
                 "timestamp": bitgo_service.treasury["vaults"]["us_operating_treasury"]["status"]
             }).encode("utf-8"))
+            return
+
+        elif path == "/api/v1/portfolio":
+            self._set_json_headers(200)
+            self.wfile.write(json.dumps(bitgo_adapter.get_portfolio_positions()).encode("utf-8"))
+            return
+
+        elif path == "/api/v1/ledger/balances":
+            self._set_json_headers(200)
+            self.wfile.write(json.dumps(subledger_engine.get_account_balances()).encode("utf-8"))
+            return
+
+        elif path == "/api/v1/ledger/journal":
+            self._set_json_headers(200)
+            self.wfile.write(json.dumps({"success": True, "journal": subledger_engine.get_journal()}).encode("utf-8"))
+            return
+
+        elif path == "/api/v1/policy/state":
+            self._set_json_headers(200)
+            self.wfile.write(json.dumps(bitgo_adapter.get_policy_state()).encode("utf-8"))
+            return
+
+        elif path == "/api/v1/reconcile/run":
+            self._set_json_headers(200)
+            self.wfile.write(json.dumps(reconciler.run_reconciliation()).encode("utf-8"))
+            return
+
+        elif path == "/api/v1/evidence/receipts":
+            self._set_json_headers(200)
+            self.wfile.write(json.dumps({"success": True, "receipts": evidence_engine.get_receipts()}).encode("utf-8"))
+            return
+
+        elif path == "/api/v1/evidence/verify":
+            self._set_json_headers(200)
+            self.wfile.write(json.dumps(evidence_engine.verify_chain_integrity()).encode("utf-8"))
             return
 
         elif path == "/api/treasury":
@@ -326,6 +368,32 @@ class MMACommandServerHandler(SimpleHTTPRequestHandler):
         body = self._read_json_body()
 
         try:
+            # Create 9-stage Transfer Intent
+            if path == "/api/v1/transfer-intents/create":
+                requester_id = body.get("requesterId", "kevan@unykorn.ai")
+                source_account = body.get("sourceAccount", "Asset:Bank:Fiat")
+                destination_address = body.get("destinationAddress", "0x8aced25DC8530FDaf0f86D53a0A1E02AAfA7Ac7A")
+                asset_symbol = body.get("assetSymbol", "USDC")
+                amount_minor_units = int(body.get("amountMinorUnits", 14500000))
+                purpose = body.get("purpose", "Commercial Permitting & Treasury Settlement")
+                
+                res = orchestrator.create_transfer_intent(
+                    requester_id, source_account, destination_address, asset_symbol, amount_minor_units, purpose
+                )
+                self._set_json_headers(200)
+                self.wfile.write(json.dumps({"success": True, "intent": res}).encode("utf-8"))
+                return
+
+            # Approve 9-stage Transfer Intent
+            elif path == "/api/v1/transfer-intents/approve":
+                intent_id = body.get("intentId")
+                approvers = body.get("approvers", ["Operator_Unykorn_01", "Operator_BitGo_02"])
+                
+                res = orchestrator.submit_operator_approvals(intent_id, approvers)
+                self._set_json_headers(200)
+                self.wfile.write(json.dumps({"success": True, "sealedIntent": res}).encode("utf-8"))
+                return
+
             # Settle a Bout
             if path == "/api/bouts/settle":
                 bout_id = body.get("boutId")

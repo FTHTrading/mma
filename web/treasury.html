@@ -3,12 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BitGo Enterprise Qualified Treasury — mma.unykorn.ai</title>
+    <title>FTH Institutional Infrastructure & BitGo Treasury OS — mma.unykorn.ai</title>
     <link rel="icon" type="image/png" href="assets/gate_mark_reverted.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .stage-pipeline {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 12px 0;
+        }
+        .stage-badge {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.15);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-family: 'JetBrains Mono', monospace;
+            min-width: 140px;
+        }
+        .stage-badge.active {
+            border-color: #00F2FE;
+            box-shadow: 0 0 12px rgba(0, 242, 254, 0.3);
+            background: rgba(0, 242, 254, 0.1);
+        }
+        .stage-title { color: #00F2FE; font-weight: 700; display: block; margin-bottom: 4px; }
+        .stage-id { color: rgba(255,255,255,0.7); word-break: break-all; }
+        .btn-action {
+            background: linear-gradient(135deg, #FF007A 0%, #FFAB00 100%);
+            color: #060C1B;
+            font-weight: 800;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 9999px;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.2s ease;
+        }
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,171,0,0.4);
+        }
+    </style>
 </head>
 <body class="dark-theme">
     <div class="app-layout">
@@ -17,23 +56,23 @@
             <div class="brand-group">
                 <a href="index.html" class="logo-box">
                     <img src="assets/gate_mark_reverted.png" alt="Unykorn Logo" class="logo-img">
-                    <span class="logo-text">MMA<span class="highlight">.INC</span></span>
-                    <span class="sub-badge" id="stockPriceTag">NYSE: MMA $0.47</span>
+                    <span class="logo-text">FTH <span class="highlight">INSTITUTIONAL</span></span>
+                    <span class="sub-badge" id="stockPriceTag">Treasury OS v1.0</span>
                 </a>
                 <div class="divider"></div>
                 <div class="powered-by">
-                    <span class="powered-label">ORCHESTRATION</span>
-                    <span class="powered-val">UNYKORN.AI RAILS</span>
+                    <span class="powered-label">CONTROL PLANE</span>
+                    <span class="powered-val">PROCESS-G ENFORCEMENT</span>
                 </div>
                 <div class="divider"></div>
                 <div class="powered-by">
                     <span class="powered-label">QUALIFIED CUSTODY</span>
-                    <span class="powered-val bitgo-glow">BITGO ENTERPRISE</span>
+                    <span class="powered-val bitgo-glow">BITGO ENTERPRISE & GO NETWORK</span>
                 </div>
                 <div class="divider"></div>
                 <div class="powered-by">
-                    <span class="powered-label">TRANSACTIONAL STABLECOIN</span>
-                    <span class="powered-val text-gold">USD1 (WORLD LIBERTY)</span>
+                    <span class="powered-label">INTEGER SUBLEDGER</span>
+                    <span class="powered-val text-gold">ZERO FLOAT MATH</span>
                 </div>
             </div>
 
@@ -48,13 +87,12 @@
                 </div>
                 <div class="system-status-indicator">
                     <span class="pulse-dot"></span>
-                    <span>ALL RAILS LIVE</span>
+                    <span>ALL SERVICES LIVE</span>
                 </div>
             </div>
         </header>
 
         <!-- Navigation Links -->
-                <!-- Navigation Links -->
         <nav class="sub-nav">
             <div class="sub-nav-container">
                 <button class="mobile-menu-toggle" onclick="document.getElementById('navTabsMenu').classList.toggle('show-mobile')" aria-label="Toggle Menu">
@@ -62,16 +100,16 @@
                     <span>Navigation Menu</span>
                 </button>
                 <div class="nav-tabs" id="navTabsMenu">
-                    <a href="index.html" class="nav-link "><span class="nav-tag">01</span> Overview</a>
-                    <a href="purses.html" class="nav-link "><span class="nav-tag">02</span> Purse Settlement</a>
-                    <a href="train-to-earn.html" class="nav-link tab-gold "><span class="nav-tag">03</span> USD1 & UFC GYM</a>
-                    <a href="prediction-markets.html" class="nav-link tab-purple "><span class="nav-tag">04</span> Prediction Markets</a>
-                    <a href="institutional-hedging.html" class="nav-link tab-indigo "><span class="nav-tag">05</span> Institutional Hedging</a>
-                    <a href="rwa-financing.html" class="nav-link "><span class="nav-tag">06</span> Gym RWA Escrow</a>
-                    <a href="xp-passport.html" class="nav-link "><span class="nav-tag">07</span> XP Passport</a>
-                    <a href="treasury.html" class="nav-link tab-blue active"><span class="nav-tag">08</span> BitGo Treasury</a>
-                    <a href="investors.html" class="nav-link "><span class="nav-tag">09</span> MMA (NYSE) & Model</a>
-                    <a href="compliance.html" class="nav-link tab-teal "><span class="nav-tag">10</span> Compliance</a>
+                    <a href="index.html" class="nav-link"><span class="nav-tag">01</span> Overview</a>
+                    <a href="purses.html" class="nav-link"><span class="nav-tag">02</span> Purse Settlement</a>
+                    <a href="train-to-earn.html" class="nav-link tab-gold"><span class="nav-tag">03</span> USD1 & UFC GYM</a>
+                    <a href="prediction-markets.html" class="nav-link tab-purple"><span class="nav-tag">04</span> Prediction Markets</a>
+                    <a href="institutional-hedging.html" class="nav-link tab-indigo"><span class="nav-tag">05</span> Institutional Hedging</a>
+                    <a href="rwa-financing.html" class="nav-link"><span class="nav-tag">06</span> Gym RWA Escrow</a>
+                    <a href="xp-passport.html" class="nav-link"><span class="nav-tag">07</span> XP Passport</a>
+                    <a href="treasury.html" class="nav-link tab-blue active"><span class="nav-tag">08</span> FTH Treasury OS</a>
+                    <a href="investors.html" class="nav-link"><span class="nav-tag">09</span> MMA (NYSE) & Model</a>
+                    <a href="compliance.html" class="nav-link tab-teal"><span class="nav-tag">10</span> Compliance</a>
                 </div>
             </div>
         </nav>
@@ -80,55 +118,124 @@
         <main class="main-viewport">
             <div class="pane-header">
                 <div>
-                    <h2> BitGo Enterprise Qualified Custody & Global Treasury Monitor</h2>
-                    <p class="subtitle">OCC Chartered Trust, MAS Major Payment Institution, and JFSA 95% Cold Storage Segregation</p>
+                    <h2>FTH Institutional Infrastructure & BitGo Treasury OS</h2>
+                    <p class="subtitle">Process-G Stage-Gated Control Plane · Policy-as-Code · Append-Only Integer Subledger · Hash-Chained Receipts</p>
                 </div>
             </div>
 
+            <!-- Treasury Hero -->
             <div class="treasury-dashboard">
                 <div class="treasury-hero card card-glass">
                     <div class="hero-left">
                         <span class="hero-label">TOTAL QUALIFIED CUSTODY ASSETS UNDER MANAGEMENT</span>
                         <h1 class="hero-number">$4,000,000.00 <span class="usd-tag">USD</span></h1>
-                        <p class="hero-desc">Private placement proceeds held in tokenized short-term T-Bills (BUIDL / USDY) with zero cash drag.</p>
+                        <p class="hero-desc">Private placement float in BitGo MPC vaults & tokenized short-term T-Bills (BUIDL / USDY).</p>
                     </div>
                     <div class="hero-right">
                         <div class="stat-card">
-                            <span class="stat-label">ANNUALIZED YIELD RATE</span>
-                            <span class="stat-val text-green">5.25% APY</span>
+                            <span class="stat-label">INTERNAL SUBLEDGER BALANCE</span>
+                            <span class="stat-val text-green" id="subledgerBalVal">$4,000,000.00</span>
                         </div>
                         <div class="stat-card">
-                            <span class="stat-label">EST. ANNUAL YIELD</span>
-                            <span class="stat-val text-green">+$210,000.00</span>
+                            <span class="stat-label">AUTOMATED RECONCILIATION</span>
+                            <span class="stat-val text-gold" id="reconStatusTag">3-WAY MATCH VERIFIED</span>
                         </div>
                         <div class="stat-card">
-                            <span class="stat-label">ACCUMULATED OPERATING YIELD</span>
-                            <span class="stat-val text-gold" id="accumYieldVal">$84,250.00</span>
+                            <span class="stat-label">EVIDENCE HASH CHAIN</span>
+                            <span class="stat-val text-aqua" id="evidenceIntegrityTag">INTEGRITY 100% CLEAN</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="vaults-grid" id="vaultsContainer">
+                <!-- 9-Stage Transaction Lifecycle Builder -->
+                <div class="card card-glass mt-4">
+                    <div class="card-title flex justify-between items-center">
+                        <h3>9-Stage Institutional Transfer Intent Launcher</h3>
+                        <span class="sub-badge">PROCESS-G ENFORCED</span>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 14px;">
+                        <div>
+                            <label style="font-size: 11px; color: rgba(255,255,255,0.6); display: block;">Destination Address (Allowlist)</label>
+                            <select id="intentDest" style="width: 100%; background: #060C1B; border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 8px; border-radius: 6px; font-family: monospace;">
+                                <option value="0x8aced25DC8530FDaf0f86D53a0A1E02AAfA7Ac7A">0x8aced25DC8530FDaf0f86D53a0A1E02AAfA7Ac7A (Approved)</option>
+                                <option value="0x4E574939D460d284B5D990646D4aeaEF2D49Fa13">0x4E574939D460d284B5D990646D4aeaEF2D49Fa13 (Approved)</option>
+                                <option value="0xUnapprovedAddress999">0xUnapprovedAddress999 (Will Trigger DENY)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="font-size: 11px; color: rgba(255,255,255,0.6); display: block;">Amount Minor Units (Cents)</label>
+                            <input type="number" id="intentAmount" value="14500000" style="width: 100%; background: #060C1B; border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 8px; border-radius: 6px; font-family: monospace;" />
+                            <span style="font-size: 10px; color: #00F2FE;">= $145,000.00 USD (Integer Cents)</span>
+                        </div>
+                        <div style="display: flex; align-items: flex-end;">
+                            <button onclick="createTransferIntent()" class="btn-action" style="width: 100%;">1. Create Intent</button>
+                        </div>
+                    </div>
+
+                    <!-- 9-Stage Trace Pipeline -->
+                    <div class="margin-top" style="margin-top: 16px;">
+                        <span style="font-size: 11px; color: #FF007A; font-weight: 700; letter-spacing: 1px;">LIVE 9-STAGE LIFECYCLE TRACE PIPELINE</span>
+                        <div class="stage-pipeline" id="stagePipeline">
+                            <div class="stage-badge"><span class="stage-title">1. INTENT ID</span><span class="stage-id" id="stg-intentId">Pending</span></div>
+                            <div class="stage-badge"><span class="stage-title">2. POLICY ID</span><span class="stage-id" id="stg-policyId">Pending</span></div>
+                            <div class="stage-badge"><span class="stage-title">3. APPROVAL SET</span><span class="stage-id" id="stg-approvalId">Pending</span></div>
+                            <div class="stage-badge"><span class="stage-title">4. BITGO REF</span><span class="stage-id" id="stg-custodyRef">Pending</span></div>
+                            <div class="stage-badge"><span class="stage-title">5. CHAIN HASH</span><span class="stage-id" id="stg-chainHash">Pending</span></div>
+                            <div class="stage-badge"><span class="stage-title">6. SETTLEMENT ID</span><span class="stage-id" id="stg-settleRef">Pending</span></div>
+                            <div class="stage-badge"><span class="stage-title">7. SUBLEDGER ID</span><span class="stage-id" id="stg-ledgerId">Pending</span></div>
+                            <div class="stage-badge"><span class="stage-title">8. RECON RUN</span><span class="stage-id" id="stg-reconId">Pending</span></div>
+                            <div class="stage-badge"><span class="stage-title">9. RECEIPT HASH</span><span class="stage-id" id="stg-receiptHash">Pending</span></div>
+                        </div>
+
+                        <div id="approvalActionBox" style="display: none; margin-top: 12px;" class="p-3 bg-dark-ocean rounded">
+                            <button onclick="approveTransferIntent()" class="btn-action">2. Execute 2-Person Operator Approval & Seal Receipt</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="vaults-grid mt-4" id="vaultsContainer">
                     <!-- Populated via JS -->
                 </div>
 
-                <!-- BitGo Recent Transactions -->
+                <!-- Integer Subledger Accounts -->
                 <div class="card card-glass mt-4">
                     <div class="card-title">
-                        <h3> BitGo Enterprise Real-Time Audit Log & MPC Ledger</h3>
+                        <h3>Append-Only Double-Entry Integer Subledger Accounts</h3>
                     </div>
                     <table class="data-table">
                         <thead>
                             <tr>
-                                <th>Tx Type</th>
-                                <th>Asset / Token</th>
-                                <th>Amount</th>
-                                <th>Jurisdiction / Recipient</th>
-                                <th>Status</th>
+                                <th>Account Name</th>
+                                <th>Account Type</th>
+                                <th>Balance (Minor Units)</th>
+                                <th>Balance (Human USD)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="subledgerAccountsTable">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Hash-Chained Evidence Receipts -->
+                <div class="card card-glass mt-4">
+                    <div class="card-title flex justify-between items-center">
+                        <h3>Tamper-Evident Hash-Chained Operational Receipts (.anvil/ops.receipts.jsonl)</h3>
+                        <span class="chip-val text-green" id="chainVerificationStatus">CHAIN INTEGRITY VERIFIED</span>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Index</th>
+                                <th>Event Type</th>
+                                <th>Previous Hash (SHA-256)</th>
+                                <th>Receipt Hash (SHA-256)</th>
+                                <th>Operator Signatures</th>
                                 <th>Timestamp</th>
                             </tr>
                         </thead>
-                        <tbody id="treasuryTxTable">
+                        <tbody id="evidenceReceiptsTable">
                             <!-- Populated via JS -->
                         </tbody>
                     </table>
