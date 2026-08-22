@@ -14,6 +14,28 @@ class XPPassportEngine:
         self._seed_passports()
 
     def _seed_passports(self):
+        # Mackenzie Dern (Featured Flagship Athlete & World Champion)
+
+        self.register_passport(
+            wallet="0x4E574939D460d284B5D990646D4aeaEF2D49Fa13",
+            name="Mackenzie Dern",
+            role="Fighter",
+            country_code=840,
+            country_name="United States / Brazil 🇺🇸 🇧🇷",
+            combat_rank="UFC Champion Contender & ADCC World Champion (3x BJJ World Champion, Black Belt 2nd Degree)",
+            kyc_level="Tier 3 (Accredited World Champion / ERC-6551 TBA)",
+            xp_points=210000,
+            badges=[
+                "UFC 330 Title Defense Collectible",
+                "ADCC Gold Medalist",
+                "3x BJJ World Champion",
+                "UFC GYM Global Brand Ambassador",
+                "Train-to-Earn USD1 Pioneer",
+                "ERC-6551 Token Bound Account",
+                "ERC-3643 KYC Verified"
+            ]
+        )
+
         # Alex Pereira
         self.register_passport(
             wallet="0x8ACED25dc8530FDaf0f86D53a0A1E02AAfA7Ac7A",
@@ -26,6 +48,7 @@ class XPPassportEngine:
             xp_points=125000,
             badges=["UFC Gold Champion", "Glory Kickboxing Legend", "ERC-3643 KYC Verified", "Instant BitGo Payout Enabled"]
         )
+
 
         # Israel Adesanya
         self.register_passport(
