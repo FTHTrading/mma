@@ -594,44 +594,86 @@ async function loadCompliance() {
     const container = document.getElementById("jurisdictionGrid");
     if (!container) return;
 
-    const jurisdictions = [
-        {
-            name: "United States (Base)",
-            footprint: "MMA.INC (NYSE American), NSAC / CSAC Vegas & California bouts",
-            regulators: "SEC, CFTC, FinCEN, State Athletic Commissions",
-            impl: "SEC-compliant reporting; BitGo Trust bank qualified custody; corporate treasury yield via tokenized T-Bills."
-        },
-        {
-            name: "Singapore (APAC Hub)",
-            footprint: "Regional headquarters, ONE Championship ecosystem",
-            regulators: "MAS (Monetary Authority of Singapore)",
-            impl: "BitGo Singapore (Major Payment Institution licensed) acts as the operational and treasury hub for APAC settlements."
-        },
-        {
-            name: "Japan",
-            footprint: "RIZIN, Pride legacy brands, K-1",
-            regulators: "JFSA (Financial Services Agency) & JVCEA",
-            impl: "BitGo MPC custody satisfies stringent JFSA 95% offline cold storage standards; enables compliant cross-border event financing and JPY-pegged settlement."
-        },
-        {
-            name: "Thailand",
-            footprint: "Muay Thai circuits (Lumpinee, Rajadamnern), Training camps",
-            regulators: "Thai SEC & Bank of Thailand",
-            impl: "Unykorn enforces identity rules avoiding banned retail token types; uses regulated on/off-ramps for foreign fighter purse conversion into Thai Baht (THB)."
-        },
-        {
-            name: "Middle East (UAE / Saudi)",
-            footprint: "UFC Fight Island (Abu Dhabi), PFL MENA (Riyadh)",
-            regulators: "VARA (Dubai) & ADGM (Abu Dhabi)",
-            impl: "Compliant virtual asset service distribution and sovereign sports investment syndication."
-        }
-    ];
+    let jurisdictions = [];
+    const apiData = await fetchApi("/api/compliance/matrix");
+    
+    if (apiData && typeof apiData === 'object') {
+        const matrix = apiData.jurisdictions || apiData;
+        jurisdictions = Object.keys(matrix).map(k => {
+            const item = matrix[k];
+            return {
+                name: item.name || k,
+                promotions: Array.isArray(item.promotions) ? item.promotions.join(", ") : (item.promotions || "UFC, Local Bouts"),
+                footprint: item.footprint || item.taxForms || "Global Combat Sports Events",
+                regulators: Array.isArray(item.regulators) ? item.regulators.join(", ") : item.regulators,
+                impl: `${item.settlementRail || ''} — ${item.coldStorageMandate || ''} (${item.tokenLegality || ''})`
+            };
+        });
+    }
+
+    if (jurisdictions.length === 0) {
+        jurisdictions = [
+            {
+                name: "Japan (East Asia Combat Capital)",
+                promotions: "RIZIN Fighting Federation, K-1 World GP, RISE Kickboxing, DEEP / DEEP JEWELS, Pancrase, Shooto, Pride FC Archive",
+                footprint: "Saitama Super Arena Grand Prix, Tokyo Dome Super Bouts & 20.42% NTA Art. 161 Tax Withholding",
+                regulators: "JFSA (Financial Services Agency), JVCEA, JMOC (Japan Martial Arts Oversight Commission)",
+                impl: "BitGo MPC Custody under strict JFSA 95% offline cold storage mandate (PSA Art. 63-11); JPYC & USD1 instant cross-border fighter purse settlement."
+            },
+            {
+                name: "Singapore (APAC Financial & Combat Hub)",
+                promotions: "ONE Championship, Matrix Fight Night (MFN Asia), WBC Muaythai Asia",
+                footprint: "Regional APAC Headquarters, Singapore Indoor Stadium Title Bouts",
+                regulators: "MAS (Monetary Authority of Singapore - Payment Services Act)",
+                impl: "BitGo Singapore Pte Ltd (Major Payment Institution License) acts as regional treasury & instant multi-currency SGD/USD1 payout hub."
+            },
+            {
+                name: "Thailand (Muay Thai & Striking Capital)",
+                promotions: "ONE Friday Fights (Lumpinee Stadium), Rajadamnern World Series (RWS), Fairtex Fight, Thai Fight",
+                footprint: "Lumpinee & Rajadamnern Stadiums, 400+ Phuket & Bangkok Gyms (Form P.N.D. 53 Withholding)",
+                regulators: "Sports Authority of Thailand (SAT Boxing Act B.E. 2542), Thai SEC, Bank of Thailand",
+                impl: "Automated THB PromptPay/BAHTNET gateway for local fighters; USD1 stablecoin escrow for 400+ Zebra Matting gym fitouts."
+            },
+            {
+                name: "South Korea (East Asia MMA Hub)",
+                promotions: "ROAD FC, Black Combat, Z-Fight Night (ZFN), Angel's Fighting Championship (AFC)",
+                footprint: "Seoul & Busan Arena Events, NTS Foreign Athlete Tax Withholding (22.0%)",
+                regulators: "FSC (Financial Services Commission Korea), FIU, KOC MMA Commission",
+                impl: "BitGo Korea / VerifyVASP Travel Rule rail enforcing compliant KRW/USD1 instant purse settlement."
+            },
+            {
+                name: "Greater China & Hong Kong",
+                promotions: "Wu Lin Feng (WLF), JCK MMA (Night of Cage), CKF (Chinese Kung Fu), ONE Championship China",
+                footprint: "Hong Kong SAR & Mainland Event Circuits, Shenzhen Matting Supply Chain",
+                regulators: "SFC Hong Kong (VASP Regulatory Framework), General Administration of Sport of China",
+                impl: "SFC-licensed digital asset custodian routing & 98% cold storage compliance for cross-border fight purses."
+            },
+            {
+                name: "Middle East (UAE & Saudi Arabia)",
+                promotions: "PFL MENA (Riyadh/Dubai), BRAVE Combat Federation (Bahrain), UFC Fight Island (Abu Dhabi), UAE Warriors",
+                footprint: "Etihad Arena Abu Dhabi, PFL MENA Riyadh Series, Tax-Free Fight Purses",
+                regulators: "VARA (Dubai Virtual Assets Regulatory Authority), ADGM FSRA (Abu Dhabi)",
+                impl: "Full VARA compliant virtual asset distribution & sovereign wealth co-investment sponsorship escrow."
+            },
+            {
+                name: "United States (North America Base)",
+                promotions: "UFC, PFL, Bellator MMA, LFA, BKFC",
+                footprint: "MMA.INC (NYSE American), Vegas T-Mobile Arena Bouts & IRS Form 1099/1042-S",
+                regulators: "SEC, CFTC, FinCEN, Nevada State Athletic Commission (NSAC), CSAC",
+                impl: "SEC Form 20-F reporting, BitGo OCC Qualified Trust bank custody, corporate treasury yield via tokenized T-Bills."
+            }
+        ];
+    }
 
     container.innerHTML = jurisdictions.map(j => `
         <div class="jur-card">
             <h3 class="jur-name">${j.name}</h3>
             <div class="jur-row">
-                <span class="jur-label">Footprint</span>
+                <span class="jur-label">Big Promotions</span>
+                <p class="jur-val text-green"><strong>${j.promotions}</strong></p>
+            </div>
+            <div class="jur-row">
+                <span class="jur-label">Footprint & Tax</span>
                 <p class="jur-val">${j.footprint}</p>
             </div>
             <div class="jur-row">
@@ -645,6 +687,7 @@ async function loadCompliance() {
         </div>
     `).join("");
 }
+
 
 // Real-time yield ticker animation
 function startRealtimeYieldTicker() {
