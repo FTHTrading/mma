@@ -107,10 +107,10 @@ class MMAPurseSettlementEngine:
             ]
         )
 
-        # 2. RIZIN / MMA.INC Tokyo Super Bout (Japan Jurisdiction)
+        # 2. RIZIN / MMA.INC Tokyo Saturday Super Bout (Japan Jurisdiction)
         self.create_bout(
-            bout_id="BOUT-TYO-2026-002",
-            event_name="MMA.INC x RIZIN Landmark Saitama Grand Prix",
+            bout_id="BOUT-TYO-SAT-2026",
+            event_name="RIZIN Saturday Super Grand Prix (Saitama Super Arena, Tokyo)",
             fighter_a_name="Kai Asakura",
             fighter_a_wallet="0x3333444455556666777788889999000011112222",
             fighter_b_name="Kyoji Horiguchi",
@@ -125,8 +125,28 @@ class MMAPurseSettlementEngine:
                 {"recipient": "0x6666777788889999000011112222333344445555", "name": "Rizin Management Corp", "percentageBps": 500, "role": "Management"},
                 {"recipient": "0x7777888899990000111122223333444455556666", "name": "JFSA / NTA Withholding Tax Account (20.42%)", "percentageBps": 2042, "role": "AthleticCommission"}
             ]
-
         )
+
+        # 2B. K-1 World GP Saturday Tokyo Night (Yoyogi National Gymnasium)
+        self.create_bout(
+            bout_id="BOUT-TYO-K1-SAT",
+            event_name="K-1 World GP Saturday Tokyo Championship (Yoyogi Gymnasium)",
+            fighter_a_name="Yuki Yoza",
+            fighter_a_wallet="0xTYO11223344556677889900112233445566778899",
+            fighter_b_name="Taito Gunji",
+            fighter_b_wallet="0xTYO99887766554433221100998877665544332211",
+            jurisdiction="JP",
+            base_purse_minor=30000000, # $300,000.00
+            win_bonus_minor=10000000,  # $100,000.00
+            settlement_token="JPYC",
+            splits=[
+                {"recipient": "0xTYO11223344556677889900112233445566778899", "name": "Fighter Net Payout (JPYC)", "percentageBps": 6458, "role": "Fighter"},
+                {"recipient": "0xTYO22334455667788990011223344556677889900", "name": "K-1 Gym Sagamihara", "percentageBps": 1000, "role": "Corner/Trainer"},
+                {"recipient": "0xTYO33445566778899001122334455667788990011", "name": "M-1 Sports Media Escrow", "percentageBps": 500, "role": "Management"},
+                {"recipient": "0xTYO44556677889900112233445566778899001122", "name": "NTA Article 161 Tax Withholding (20.42%)", "percentageBps": 2042, "role": "AthleticCommission"}
+            ]
+        )
+
 
         # 3. Lumpinee Muay Thai Super Series (Thailand Jurisdiction)
         self.create_bout(

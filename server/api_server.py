@@ -185,7 +185,71 @@ class MMACommandServerHandler(SimpleHTTPRequestHandler):
             return
 
 
-        # NEW ENDPOINTS FOR PREDICTION MARKETS & ORACLE DESK
+        elif path == "/api/events/tokyo-saturday":
+            self._set_json_headers(200)
+            self.wfile.write(json.dumps({
+                "success": True,
+                "saturdaySchedule": [
+                    {
+                        "eventId": "EVT-TYO-SAT-01",
+                        "title": "RIZIN Super Saturday Grand Prix",
+                        "date": "Saturday 19:00 JST",
+                        "arena": "Saitama Super Arena (Tokyo Hub) 🇯🇵",
+                        "promotion": "RIZIN Fighting Federation",
+                        "officialWebsite": "https://jp.rizinff.com",
+                        "mainEvent": "Kai Asakura vs. Kyoji Horiguchi 3",
+                        "totalPurseUsd": 800000.00,
+                        "settlementToken": "JPYC & USD1",
+                        "withholdingTax": "20.42% NTA Art. 161",
+                        "bitgoVault": "BitGo Japan MPC Vault (95% Cold Storage)",
+                        "ticketStatus": "VIP RWA Escrow Live"
+                    },
+                    {
+                        "eventId": "EVT-TYO-SAT-02",
+                        "title": "K-1 World GP Saturday Tokyo Championship",
+                        "date": "Saturday 18:30 JST",
+                        "arena": "Yoyogi National Gymnasium #1 (Shibuya, Tokyo) 🇯🇵",
+                        "promotion": "K-1 World GP Japan",
+                        "officialWebsite": "https://k-1.co.jp",
+                        "mainEvent": "Yuki Yoza vs. Taito Gunji",
+                        "totalPurseUsd": 400000.00,
+                        "settlementToken": "JPYC",
+                        "withholdingTax": "20.42% NTA Art. 161",
+                        "bitgoVault": "BitGo Japan MPC Vault",
+                        "ticketStatus": "Sold Out (USD1 Re-sale Active)"
+                    },
+                    {
+                        "eventId": "EVT-BKK-SAT-03",
+                        "title": "ONE Fight Night Saturday Prime Series",
+                        "date": "Saturday 08:00 EST / 19:00 ICT",
+                        "arena": "Lumpinee Boxing Stadium (Bangkok) 🇹🇭",
+                        "promotion": "ONE Championship",
+                        "officialWebsite": "https://onefc.com",
+                        "mainEvent": "Superbon Singha Mawynn vs. Tawanchai PK.Saenchai",
+                        "totalPurseUsd": 500000.00,
+                        "settlementToken": "USD1 & THB PromptPay",
+                        "withholdingTax": "15.0% Form P.N.D. 53",
+                        "bitgoVault": "BitGo Singapore MPI Vault",
+                        "ticketStatus": "Live Telemetry Broadcast Active"
+                    },
+                    {
+                        "eventId": "EVT-SEL-SAT-04",
+                        "title": "ROAD FC & Black Combat Saturday Night",
+                        "date": "Saturday 19:00 KST",
+                        "arena": "Jangchung Gymnasium (Seoul) 🇰🇷",
+                        "promotion": "ROAD FC & Black Combat",
+                        "officialWebsite": "https://roadfc.com",
+                        "mainEvent": "Soo Chul Kim vs. Jung Young Lee",
+                        "totalPurseUsd": 350000.00,
+                        "settlementToken": "KRW & USD1",
+                        "withholdingTax": "22.0% NTS Foreign Athlete Surtax",
+                        "bitgoVault": "BitGo Korea Travel Rule Rail",
+                        "ticketStatus": "Live Betting & RWA Escrow"
+                    }
+                ]
+            }).encode("utf-8"))
+            return
+
         elif path == "/api/prediction/markets":
             self._set_json_headers(200)
             self.wfile.write(json.dumps({
