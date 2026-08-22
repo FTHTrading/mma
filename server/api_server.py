@@ -250,6 +250,39 @@ class MMACommandServerHandler(SimpleHTTPRequestHandler):
             }).encode("utf-8"))
             return
 
+        elif path == "/api/athlete/mackenzie-dern":
+            self._set_json_headers(200)
+            self.wfile.write(json.dumps({
+                "success": True,
+                "athlete": {
+                    "name": "Mackenzie Dern",
+                    "title": "UFC Strawweight Champion Contender & ADCC World Champion",
+                    "tbaWallet": "0x4E574939D460d284B5D990646D4aeaEF2D49Fa13",
+                    "xpPoints": 210000,
+                    "trainToEarnRebatesUsd": 14250.00,
+                    "interchangeSavedUsd": 84600.00,
+                    "custodyVault": "BitGo MPC Cold Storage Vault",
+                    "settlementRail": "USD1 & JPYC Instant T+0",
+                    "badges": [
+                        "UFC 330 Title Defense Collectible",
+                        "ADCC Gold Medalist (-60kg)",
+                        "3x IBJJF World Champion (Gi & No-Gi)",
+                        "BJJ Black Belt 2nd Degree",
+                        "UFC GYM Global Ambassador",
+                        "ERC-6551 Token Bound Account",
+                        "ERC-3643 KYC Verified"
+                    ],
+                    "purseSplits": {
+                        "athleteNet": "70%",
+                        "headCoachCamp": "10%",
+                        "management": "10%",
+                        "taxVault": "10%"
+                    }
+                }
+            }).encode("utf-8"))
+            return
+
+
         elif path == "/api/prediction/markets":
             self._set_json_headers(200)
             self.wfile.write(json.dumps({
