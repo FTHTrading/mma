@@ -86,9 +86,25 @@ body {
     backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border-color);
     position: sticky;
-    top: 0;
     z-index: 100;
 }
+
+/* INFRASTRUCTURE TELEMETRY BAR */
+.infra-status-bar {
+    background: #020408;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 6px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+}
+.infra-status-container {
+    display: flex; gap: 24px; overflow-x: auto; white-space: nowrap; align-items: center; justify-content: space-between;
+}
+.infra-chip {
+    display: flex; align-items: center; gap: 6px; color: var(--text-muted);
+}
+.infra-chip strong { color: #fff; }
+
 
 .brand-group {
     display: flex;
