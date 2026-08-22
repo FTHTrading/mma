@@ -55,17 +55,23 @@
 
         <!-- Navigation Links -->
         <nav class="sub-nav">
-            <div class="nav-tabs">
-                <a href="index.html" class="nav-link"><span class="tab-icon">🏠</span> Overview</a>
-                <a href="purses.html" class="nav-link"><span class="tab-icon">⚡</span> Purse Settlement</a>
-                <a href="train-to-earn.html" class="nav-link tab-gold"><span class="tab-icon">🪙</span> USD1 & UFC GYM</a>
-                <a href="prediction-markets.html" class="nav-link tab-purple active"><span class="tab-icon">🎯</span> Prediction Markets</a>
-                <a href="institutional-hedging.html" class="nav-link tab-indigo"><span class="tab-icon">🛡️</span> Institutional Hedging</a>
-                <a href="rwa-financing.html" class="nav-link"><span class="tab-icon">🏢</span> Gym RWA Escrow</a>
-                <a href="xp-passport.html" class="nav-link"><span class="tab-icon">🪪</span> XP Passport</a>
-                <a href="treasury.html" class="nav-link tab-blue"><span class="tab-icon">🏛️</span> BitGo Treasury</a>
-                <a href="investors.html" class="nav-link"><span class="tab-icon">📈</span> MMA (NYSE) & Model</a>
-                <a href="compliance.html" class="nav-link tab-teal"><span class="tab-icon">🌐</span> Compliance</a>
+            <div class="sub-nav-container">
+                <button class="mobile-menu-toggle" onclick="document.getElementById('navTabsMenu').classList.toggle('show-mobile')" aria-label="Toggle Menu">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+                    <span>Navigation Menu</span>
+                </button>
+                <div class="nav-tabs" id="navTabsMenu">
+                    <a href="index.html" class="nav-link"><span class="nav-tag">01</span> Overview</a>
+                    <a href="purses.html" class="nav-link"><span class="nav-tag">02</span> Purse Settlement</a>
+                    <a href="train-to-earn.html" class="nav-link tab-gold"><span class="nav-tag">03</span> USD1 & UFC GYM</a>
+                    <a href="prediction-markets.html" class="nav-link tab-purple active"><span class="nav-tag">04</span> Prediction Markets</a>
+                    <a href="institutional-hedging.html" class="nav-link tab-indigo"><span class="nav-tag">05</span> Institutional Hedging</a>
+                    <a href="rwa-financing.html" class="nav-link"><span class="nav-tag">06</span> Gym RWA Escrow</a>
+                    <a href="xp-passport.html" class="nav-link"><span class="nav-tag">07</span> XP Passport</a>
+                    <a href="treasury.html" class="nav-link tab-blue"><span class="nav-tag">08</span> BitGo Treasury</a>
+                    <a href="investors.html" class="nav-link"><span class="nav-tag">09</span> MMA (NYSE) & Model</a>
+                    <a href="compliance.html" class="nav-link tab-teal"><span class="nav-tag">10</span> Compliance</a>
+                </div>
             </div>
         </nav>
 
@@ -73,8 +79,8 @@
         <main class="main-viewport">
             <div class="pane-header">
                 <div>
-                    <h2>🎯 Prediction Markets & Combat Sports Multi-Oracle Engine</h2>
-                    <p class="subtitle">Fan outcome contracts, 3-of-4 signature oracle consensus, 5-minute dispute buffer, and XP reward pools</p>
+                    <h2>Prediction Markets & Combat Sports Multi-Oracle Engine</h2>
+                    <p class="subtitle">Fan outcome contracts, 3-of-4 signature oracle consensus, 300-second dispute buffer, and XP reward pools powered by BitGo MPC Custody</p>
                 </div>
             </div>
 
@@ -82,7 +88,7 @@
                 <!-- Left: Active Prediction Markets & Staking -->
                 <div class="col card card-glass">
                     <div class="card-title">
-                        <h3>🔥 Active Event Prediction Pools</h3>
+                        <h3>Active Event Prediction Pools</h3>
                         <span class="badge badge-purple" id="predMarketBadge">3 Markets Open</span>
                     </div>
                     <div class="pred-markets-list" id="predMarketsContainer">
@@ -93,7 +99,7 @@
                 <!-- Right: Multi-Oracle Consensus Feed & Dispute Window -->
                 <div class="col card card-glass">
                     <div class="card-title">
-                        <h3>📡 Multi-Source Cryptographic Oracle Telemetry (3-of-4 Quorum)</h3>
+                        <h3>Multi-Source Cryptographic Oracle Telemetry (3-of-4 Quorum)</h3>
                         <span class="badge badge-success">Consensus Live</span>
                     </div>
 
@@ -103,16 +109,68 @@
                         </div>
 
                         <div class="card-title mt-4">
-                            <h4>⚖️ Bout Outcome Finalization & Dispute Buffer</h4>
+                            <h4>Bout Outcome Finalization & Dispute Buffer</h4>
                         </div>
                         <div id="oracleReportsContainer">
                             <!-- Populated via JS -->
                         </div>
 
                         <div class="dispute-action-box mt-4">
-                            <button class="btn btn-outline btn-sm" onclick="simulateDispute()">⚠️ Flag Commission Dispute</button>
-                            <button class="btn btn-primary btn-sm" onclick="finalizeOracleOutcome()">✅ Finalize Outcome & Disburse Winnings (BitGo T+0)</button>
+                            <button class="btn btn-outline btn-sm" onclick="simulateDispute()">Flag Commission Dispute</button>
+                            <button class="btn btn-primary btn-sm" onclick="finalizeOracleOutcome()">Finalize Outcome & Disburse Winnings (BitGo T+0)</button>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BitGo Developer Architecture & Mechanics -->
+            <div class="card card-glass mt-4">
+                <div class="card-title">
+                    <h3>BitGo Developer Integration & Oracle Mechanics</h3>
+                    <span class="badge badge-blue">BitGo v2 API Docs</span>
+                </div>
+                
+                <div class="bitgo-tech-grid">
+                    <div class="bitgo-tech-card">
+                        <div class="bitgo-tech-title">
+                            <span>BitGo Express Signing Proxy</span>
+                        </div>
+                        <p>All oracle payout transactions are signed locally via BitGo Express proxy. User keys remain encrypted in client memory, preventing key exposure to network sniffing.</p>
+                        <div class="bitgo-code-snippet">// BitGo Express Payout Execution
+const bitgo = new BitGo({ env: 'prod' });
+const wallet = await bitgo.coin('tbtc').wallets().get({ id: walletId });
+const tx = await wallet.sendMany({
+  recipients: payouts,
+  walletPassphrase: process.env.BITGO_PASSPHRASE
+});</div>
+                    </div>
+
+                    <div class="bitgo-tech-card">
+                        <div class="bitgo-tech-title">
+                            <span>Webhook Event Telemetry</span>
+                        </div>
+                        <p>Real-time bout settlement confirmation triggered by BitGo webhooks. Automatically updates outcome pool ledgers upon transaction finality on-chain.</p>
+                        <div class="bitgo-code-snippet">// Webhook Listener (POST /api/bitgo/webhook)
+app.post('/webhook', (req, res) => {
+  const { type, hash, state } = req.body;
+  if (type === 'transfer' && state === 'confirmed') {
+    PredictionEngine.settlePool(hash);
+  }
+  res.sendStatus(200);
+});</div>
+                    </div>
+
+                    <div class="bitgo-tech-card">
+                        <div class="bitgo-tech-title">
+                            <span>Threshold Signature Scheme (TSS)</span>
+                        </div>
+                        <p>Oracle consensus results are committed using BitGo's 2-of-3 MPC TSS wallet architecture. 3 independent athletic commission nodes co-sign payout receipts.</p>
+                        <div class="bitgo-code-snippet">// 3-of-4 ECDSA Multi-Sig Consensus
+const payload = ethers.utils.solidityKeccak256(
+  ['string', 'uint8', 'string'],
+  [boutId, winnerIndex, finishMethod]
+);
+const sigs = await Promise.all(nodes.map(n => n.sign(payload)));</div>
                     </div>
                 </div>
             </div>

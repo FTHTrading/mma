@@ -55,17 +55,23 @@
 
         <!-- Navigation Links -->
         <nav class="sub-nav">
-            <div class="nav-tabs">
-                <a href="index.html" class="nav-link"><span class="tab-icon">🏠</span> Overview</a>
-                <a href="purses.html" class="nav-link"><span class="tab-icon">⚡</span> Purse Settlement</a>
-                <a href="train-to-earn.html" class="nav-link tab-gold"><span class="tab-icon">🪙</span> USD1 & UFC GYM</a>
-                <a href="prediction-markets.html" class="nav-link tab-purple"><span class="tab-icon">🎯</span> Prediction Markets</a>
-                <a href="institutional-hedging.html" class="nav-link tab-indigo active"><span class="tab-icon">🛡️</span> Institutional Hedging</a>
-                <a href="rwa-financing.html" class="nav-link"><span class="tab-icon">🏢</span> Gym RWA Escrow</a>
-                <a href="xp-passport.html" class="nav-link"><span class="tab-icon">🪪</span> XP Passport</a>
-                <a href="treasury.html" class="nav-link tab-blue"><span class="tab-icon">🏛️</span> BitGo Treasury</a>
-                <a href="investors.html" class="nav-link"><span class="tab-icon">📈</span> MMA (NYSE) & Model</a>
-                <a href="compliance.html" class="nav-link tab-teal"><span class="tab-icon">🌐</span> Compliance</a>
+            <div class="sub-nav-container">
+                <button class="mobile-menu-toggle" onclick="document.getElementById('navTabsMenu').classList.toggle('show-mobile')" aria-label="Toggle Menu">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+                    <span>Navigation Menu</span>
+                </button>
+                <div class="nav-tabs" id="navTabsMenu">
+                    <a href="index.html" class="nav-link"><span class="nav-tag">01</span> Overview</a>
+                    <a href="purses.html" class="nav-link"><span class="nav-tag">02</span> Purse Settlement</a>
+                    <a href="train-to-earn.html" class="nav-link tab-gold"><span class="nav-tag">03</span> USD1 & UFC GYM</a>
+                    <a href="prediction-markets.html" class="nav-link tab-purple"><span class="nav-tag">04</span> Prediction Markets</a>
+                    <a href="institutional-hedging.html" class="nav-link tab-indigo active"><span class="nav-tag">05</span> Institutional Hedging</a>
+                    <a href="rwa-financing.html" class="nav-link"><span class="nav-tag">06</span> Gym RWA Escrow</a>
+                    <a href="xp-passport.html" class="nav-link"><span class="nav-tag">07</span> XP Passport</a>
+                    <a href="treasury.html" class="nav-link tab-blue"><span class="nav-tag">08</span> BitGo Treasury</a>
+                    <a href="investors.html" class="nav-link"><span class="nav-tag">09</span> MMA (NYSE) & Model</a>
+                    <a href="compliance.html" class="nav-link tab-teal"><span class="nav-tag">10</span> Compliance</a>
+                </div>
             </div>
         </nav>
 
@@ -73,7 +79,7 @@
         <main class="main-viewport">
             <div class="pane-header">
                 <div>
-                    <h2>🛡️ BitGo Prime & Susquehanna Crypto Institutional OTC Hedging Desk</h2>
+                    <h2>BitGo Prime & Susquehanna Crypto Institutional OTC Hedging Desk</h2>
                     <p class="subtitle">Zero-unwrap collateralized risk hedging: Main Event Cancellation Swaps, PPV Buy Floor Options, and Cross-Border FX</p>
                 </div>
             </div>
@@ -100,6 +106,56 @@
 
             <div class="otc-hedges-grid mt-4" id="otcHedgesContainer">
                 <!-- Populated via JS -->
+            </div>
+
+            <!-- BitGo Institutional OTC Swap Architecture -->
+            <div class="card card-glass mt-4">
+                <div class="card-title">
+                    <h3>BitGo Prime Institutional Off-Exchange Settlement (OES) Mechanics</h3>
+                    <span class="badge badge-indigo">ISDA & MPC Collateral</span>
+                </div>
+                
+                <div class="bitgo-tech-grid">
+                    <div class="bitgo-tech-card">
+                        <div class="bitgo-tech-title">
+                            <span>Off-Exchange Settlement (OES)</span>
+                        </div>
+                        <p>Collateral stays in BitGo Trust qualified custody while active on Susquehanna order books. Zero counterparty exchange bankruptcy risk.</p>
+                        <div class="bitgo-code-snippet">// BitGo OES Lock Request
+const lock = await bitgo.prime().lockCollateral({
+  amount: 225000,
+  asset: 'USD1',
+  counterparty: 'Susquehanna_Crypto'
+});</div>
+                    </div>
+
+                    <div class="bitgo-tech-card">
+                        <div class="bitgo-tech-title">
+                            <span>ISDA Master Confirmation</span>
+                        </div>
+                        <p>Bilateral OTC event contracts settle via ISDA standard confirmations. Auto-triggers payout when official fight cancellation or PPV deficit is verified.</p>
+                        <div class="bitgo-code-snippet">// ISDA Event Trigger Execution
+if (eventCancellationOracle.isTriggered()) {
+  bitgo.prime().settleSwap({
+    contractId: 'HEDGE-MMA-2026-001',
+    payoutAmount: 750000
+  });
+}</div>
+                    </div>
+
+                    <div class="bitgo-tech-card">
+                        <div class="bitgo-tech-title">
+                            <span>Multi-Currency FX Hedging</span>
+                        </div>
+                        <p>Dynamic FX rate protection (USD/JPY/THB/EUR) for global fight cards in Tokyo, Bangkok, and London, locked at booking date.</p>
+                        <div class="bitgo-code-snippet">// Cross-Border FX Settlement
+const fxLock = await bitgo.prime().createFxForward({
+  pair: 'USD/THB',
+  notional: 500000,
+  targetRate: 35.80
+});</div>
+                    </div>
+                </div>
             </div>
         </main>
     </div>

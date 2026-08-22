@@ -108,9 +108,9 @@ function renderBoutList() {
                 <span>${b.fighterB.name}</span>
             </div>
             <div class="bout-tags">
-                <span class="badge badge-info">📍 ${b.jurisdiction} Rail</span>
-                <span class="badge badge-info">💰 $${(b.basePurseUsd).toLocaleString()} Purse</span>
-                <span class="badge badge-info">🪙 ${b.settlementToken}</span>
+                <span class="badge badge-info"> ${b.jurisdiction} Rail</span>
+                <span class="badge badge-info"> $${(b.basePurseUsd).toLocaleString()} Purse</span>
+                <span class="badge badge-info"> ${b.settlementToken}</span>
             </div>
         </div>
     `).join("");
@@ -159,12 +159,12 @@ function selectBout(boutId) {
     const btnExecute = document.getElementById("btnExecuteSettlement");
     if (bout.isSettled) {
         btnExecute.disabled = true;
-        btnExecute.innerText = "✅ Bout Already Programmatically Settled via BitGo";
+        btnExecute.innerText = " Bout Already Programmatically Settled via BitGo";
         receiptBox.style.display = "block";
         renderReceipt(bout);
     } else {
         btnExecute.disabled = false;
-        btnExecute.innerText = "🚀 Execute BitGo Programmatic MPC Payout (T+0)";
+        btnExecute.innerText = " Execute BitGo Programmatic MPC Payout (T+0)";
         receiptBox.style.display = "none";
     }
 }
@@ -306,7 +306,7 @@ async function loadOracleReports() {
             <div class="oracle-node-card">
                 <div style="display:flex;justify-content:space-between;">
                     <span class="oracle-node-name">${n.name}</span>
-                    <span class="badge badge-success">✓ Quorum Active</span>
+                    <span class="badge badge-success"> Quorum Active</span>
                 </div>
                 <div class="oracle-sig-hash">ECDSA_PUBKEY: 0x${Math.random().toString(16).substr(2, 8)}...${Math.random().toString(16).substr(2, 6)}</div>
             </div>
@@ -320,7 +320,7 @@ async function loadOracleReports() {
                 <div style="display:flex;justify-content:space-between;">
                     <strong>Bout ID: ${r.boutId}</strong>
                     <span class="badge ${r.inDispute ? 'badge-warning' : (r.isFinalized ? 'badge-success' : 'badge-info')}">
-                        ${r.inDispute ? '⚠️ Active Dispute' : (r.isFinalized ? '✅ Finalized & Paid' : '⏳ 5-Min Dispute Window')}
+                        ${r.inDispute ? ' Active Dispute' : (r.isFinalized ? ' Finalized & Paid' : '⏳ 5-Min Dispute Window')}
                     </span>
                 </div>
                 <div style="margin-top:8px;font-size:13px;">
@@ -475,7 +475,7 @@ async function loadRwaAgreements() {
                             </div>
                             <div>
                                 ${m.isReleased 
-                                    ? '<span class="badge badge-success">✓ Disbursed</span>' 
+                                    ? '<span class="badge badge-success"> Disbursed</span>' 
                                     : `<button class="btn btn-outline btn-sm" onclick="releaseMilestone('${a.agreementId}', ${idx})">Verify & Release</button>`
                                 }
                             </div>
@@ -518,7 +518,7 @@ async function loadPassports() {
 
             <div style="font-size:12px;color:var(--text-muted);display:flex;justify-content:space-between;">
                 <span>Jurisdiction: <strong>${p.countryName}</strong></span>
-                <span class="text-green">✓ ${p.kycLevel}</span>
+                <span class="text-green"> ${p.kycLevel}</span>
             </div>
 
             <div class="passport-xp">${p.xpPoints.toLocaleString()} <span style="font-size:12px;color:var(--text-dim);">XP</span></div>
@@ -547,7 +547,7 @@ async function loadTreasury() {
                     <div class="vault-balance text-gold">$${v.balance.toLocaleString(undefined, {minimumFractionDigits:2})}</div>
                     <div style="font-size:11px;color:var(--text-muted);">Asset: <strong>${v.asset}</strong></div>
                     <div style="font-size:10px;color:var(--cyan);margin-top:6px;">MPC: ${v.mpcThreshold}</div>
-                    <div style="font-size:10px;color:var(--green);margin-top:2px;">● ${v.status}</div>
+                    <div style="font-size:10px;color:var(--green);margin-top:2px;"> ${v.status}</div>
                 </div>
             `;
         }).join("");
@@ -561,7 +561,7 @@ async function loadTreasury() {
                 <td>${tx.token || 'USD'}</td>
                 <td class="text-green font-mono">$${(tx.amountHuman || tx.amountUsd || tx.amount || 0).toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
                 <td>${tx.recipient || tx.jurisdiction || 'BitGo Vault'}</td>
-                <td><span class="badge badge-success">✓ Confirmed</span></td>
+                <td><span class="badge badge-success"> Confirmed</span></td>
                 <td style="font-family:var(--font-mono);font-size:11px;color:var(--text-dim);">${tx.timestamp}</td>
             </tr>
         `).join("");
